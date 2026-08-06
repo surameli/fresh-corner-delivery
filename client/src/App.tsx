@@ -27,12 +27,13 @@ const App = () => {
            <Route path="products/:id" element={<ProductPage/>} />
            <Route path="search" element={<SearchResult/>} />
            <Route path="deals" element={<FlashDeals/>} />
-         </Route>
+         
          <Route element={<ProtectedRoute/>}>
           <Route path="checkout" element={<Checkout/>} />
           <Route path="orders" element={<MyOrders/>} />
           <Route path="orders/:id" element={<OrderTracking/>} />
           <Route path="addresses" element={<Addresses/>} />
+         </Route>
          </Route>
          {/* auth pages - No navbar/Footer */}
       </Routes>
