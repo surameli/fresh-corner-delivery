@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
+import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, LogOutIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -49,7 +49,7 @@ const Navbar = () => {
                 {/* user */}
                 <div className="relative">
                     {user ? (
-                        <button className="flex items-center gap-2 p-2">
+                        <button onClick={()=>setuserMenuopen(!userMenuopen)} className="flex items-center gap-2 p-2">
                              <div className="size-7 rounded-full bg-green-950 text-white flex-center">
                                 {user.name.charAt(0).toUpperCase()}
                              </div>
@@ -87,6 +87,16 @@ const Navbar = () => {
                             {user && <Link to='/addresses'className="dropdown-link"><MapPinIcon size={16}/>Adresses</Link>}
                             <Link to='/products'className="dropdown-link md:hidden"><ArrowUpRightIcon size={16}/>Products</Link>
                             <Link to='/deals'className="dropdown-link md:hidden"><MapPinIcon size={16}/>Deals</Link>
+                            {user?.isAdmin && (
+                                <Link to='/admin/products'className="dropdown-link"><ShieldIcon className="text-app-orange-dark" size={16}/><span className="text-app-orange-dark">Admin Panel</span></Link>
+                            )}
+                            {user &&(
+                                <div className="border-t border-app-border pt-1">
+                                    <button>
+                                        <LogOutIcon size={16}/>
+                                    </button>
+                                </div>
+                            )}
                            </div>
                          </div>
 
