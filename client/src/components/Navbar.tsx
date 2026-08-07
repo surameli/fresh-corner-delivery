@@ -1,4 +1,4 @@
-import { BikeIcon } from "lucide-react";
+import { BikeIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -25,9 +25,20 @@ const Navbar = () => {
                 <Link to='/'>Home</Link>
                 <Link to='/products'>products</Link>
                 <Link to='/deals' className=" text-app-orange">Deals</Link>
-                
-
              </div>
+             {/* search */}
+             <form className="hidden sm:flex flex-1 max-w-sm text-xs sm:text-sm">
+                <div className="relative w-full">
+                   <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-zinc-500"/>
+                   <input type="text" 
+                   placeholder="Search for groceries..."
+                   value={searchQuery}
+                   onChange={(e)=> setsearchQuery(e.target.value)}
+                   className=" w-full pl-8 p-2 bg-orange-50 rounded-full ring ring-app-orange/15 focus:ring-app-orange/30"/>
+
+                </div>
+
+             </form>
 
            </div>
         </div>
