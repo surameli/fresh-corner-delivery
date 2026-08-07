@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, LogOutIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -12,6 +12,22 @@ const Navbar = () => {
     const [searchQuery, setsearchQuery] = useState("")
     const [userMenuopen, setuserMenuopen] = useState(false)
     const navigate = useNavigate()
+
+
+    const handelSearch =(e: React.SubmitEvent)=>{
+         e.preventDefault()
+         if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+            setsearchQuery("")
+            
+         }
+    }
+    const handleLogeout =()=>{
+        setuserMenuopen(false)
+        navigate("/")
+
+    }
+
   return (
     <nav className="bg-white sticky top-0 z-50 border-b border-app-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4">
@@ -27,7 +43,7 @@ const Navbar = () => {
                 <Link to='/deals' className=" text-app-orange">Deals</Link>
              </div>
              {/* search */}
-             <form className="hidden sm:flex flex-1 max-w-sm text-xs sm:text-sm">
+             <form onSubmit={handelSearch} className="hidden sm:flex flex-1 max-w-sm text-xs sm:text-sm">
                 <div className="relative w-full">
                    <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-zinc-500"/>
                    <input type="text" 
@@ -92,7 +108,7 @@ const Navbar = () => {
                             )}
                             {user &&(
                                 <div className="border-t border-app-border pt-1">
-                                    <button>
+                                    <button onClick={handleLogeout}>
                                         <LogOutIcon size={16}/>
                                     </button>
                                 </div>
