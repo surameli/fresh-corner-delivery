@@ -1,4 +1,4 @@
-import { BikeIcon, SearchIcon } from "lucide-react";
+import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -39,6 +39,64 @@ const Navbar = () => {
                 </div>
 
              </form>
+             {/* right Action */}
+             <div className="flex items-center gap-3">
+                {/* cart */}
+                <button className="relative p-2 rounded-xl"onClick={()=> setIsCartOpen(true)}>
+                     <ShoppingCartIcon className="size-5 text-zinc-900"/>
+                     {cartCount>0 && <span className="absolute -top-1 -right-1 size-4 bg-app-orange text-white text-[10px] rounded-full flex-center">{cartCount}</span>}
+                </button>
+                {/* user */}
+                <div className="relative">
+                    {user ? (
+                        <button className="flex items-center gap-2 p-2">
+                             <div className="size-7 rounded-full bg-green-950 text-white flex-center">
+                                {user.name.charAt(0).toUpperCase()}
+                             </div>
+                             <ChevronDownIcon className="size-3 text-zinc-500"/>
+                        </button>
+                    ):(
+                        <div className="flex-center gap-2">
+                             <Link to='/login' className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-950 rounded-full hover:bg-green-950-lighr transition-colors">
+                             <UserIcon size={16}/> sign In
+                             </Link>
+                             {userMenuopen? <XIcon className="md:hidden" 
+                             onClick={()=>setuserMenuopen(!userMenuopen)}/>: 
+                             <MenuIcon className="md:hidden"
+                             onClick={()=>
+                                setuserMenuopen(!userMenuopen)
+                             }/> }
+                        </div>
+                    )}
+                    {userMenuopen && (
+                        <>
+                         <div className="fixed inset-0 z-40 "onClick={()=>
+                            setuserMenuopen(false)
+                         }/>
+                         <div className="absolute right-0 mt-2.5 w-56 bg-white rounded-xl shadow-lg border border-app-border py-2 z-50 animate-fade-in">
+                           {user && (
+                             <div className="px-4 py-2 border-b border-app-border">
+                                <p>{user ?.name}</p>
+                                <p>{user?.email}</p>
+
+                             </div>
+                           )}
+                           <div onClick={()=> setuserMenuopen(false)}>
+                            {!user && <Link to='/login'className="dropdown-link"><UserIcon size={16}/>Sign In</Link>}
+                            {user && <Link to='/orders'className="dropdown-link"><PackageIcon size={16}/>My Orders</Link>}
+                            {user && <Link to='/addresses'className="dropdown-link"><MapPinIcon size={16}/>Adresses</Link>}
+                            <Link to='/products'className="dropdown-link md:hidden"><ArrowUpRightIcon size={16}/>Products</Link>
+                            <Link to='/deals'className="dropdown-link md:hidden"><MapPinIcon size={16}/>Deals</Link>
+                           </div>
+                         </div>
+
+                         
+                        </>
+                    )}
+
+                </div>
+
+             </div>
 
            </div>
         </div>
