@@ -112,6 +112,7 @@ const Navbar = () => {
                                         <LogOutIcon size={16}/>LogOut
                                     </button>
                                 </div>
+                                
                             )}
                            </div>
                          </div>
