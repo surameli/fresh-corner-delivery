@@ -12,7 +12,7 @@ const Hero = () => {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-app-green via-app-green/65 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-app-green via-app-green/65 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
         <div className="max-w-xl xl:pl-10">
