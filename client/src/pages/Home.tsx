@@ -1,5 +1,6 @@
 import Features from "../components/Home/Features.tsx"
 import Hero from "../components/Home/Hero.tsx"
+import HomeCategories from "../components/Home/HomeCategories.tsx"
 
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
 
       <Hero/>
       <Features/>
+      <HomeCategories/>
     </div>
   )
 }
