@@ -22,9 +22,9 @@ const Hero = () => {
             Farm-Fresh and Organic
           </span>
 
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-white leading-tight mb-5">
-            nourish your home with{" "}
-            <span className="text-orange-300">Earth's finest</span>
+          <h1 className="font-serif text-3xl sm:text-5xl  text-white leading-tight mb-5">
+            Shop fresh groceries,{" "}
+            <span className="text-orange-300">delivered to your door</span>
           </h1>
 
           <p className="text-base text-white/70 leading-relaxed mb-8 max-w-md">
