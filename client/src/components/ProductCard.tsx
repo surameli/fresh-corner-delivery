@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../types"
-import { Star } from "lucide-react";
+import { Plus, Star } from "lucide-react";
 
 interface props{
     product: Product
@@ -8,7 +8,7 @@ interface props{
 const ProductCard = ({product}: props) => {
      
 
-    const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "$";
+    const currency = import.meta.env.VITE_CURRENCY_SYMBOL || "Birr";
      const {addToCart} = {addToCart:(_data: any) =>{}}
      const navigate = useNavigate()
      
@@ -44,6 +44,21 @@ const ProductCard = ({product}: props) => {
 
             </div>
           )}
+
+          {/* price + Add */}
+           <div className="flex items-center justify-between">
+
+            <div className="flex items-center gap-1 truncate">
+
+                <span className="text-base font-medium">{product.price.toFixed(1)} {currency}</span>
+                <span className="text-xs text-app-text-light block">/{product.unit}</span>
+
+                {product.originalPrice > product.price && <span className="text-xs text-app-text-light line-through ml-1.5">{currency}{product.originalPrice.toFixed(1)}</span>}
+
+            </div>
+             
+           </div>
+
        </div>
 
     </div>
