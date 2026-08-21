@@ -38,7 +38,7 @@ const ProductCard = ({product}: props) => {
         {/* rating */}
           {product.rating > 0 && (
             <div className="flex items-center gap-1 mb-2">
-                <Star className="size-3 text-app- warning full-app-warning"/>
+                <Star className="size-3 text-app-warning fill-app-warning"/>
                 <span className="text-xs font-medium text-app-text">{product.rating}</span>
                 <span className="text-xs text-app-text-light">({product.reviewCount})</span>
 
@@ -53,10 +53,14 @@ const ProductCard = ({product}: props) => {
                 <span className="text-base font-medium">{product.price.toFixed(1)} {currency}</span>
                 <span className="text-xs text-app-text-light block">/{product.unit}</span>
 
-                {product.originalPrice > product.price && <span className="text-xs text-app-text-light line-through ml-1.5">{currency}{product.originalPrice.toFixed(1)}</span>}
+                {product.originalPrice > product.price && <span className="text-xs text-app-text-light line-through ml-1.5">{product.originalPrice.toFixed(1)}{currency}</span>}
 
             </div>
-             
+             <button className="size-7 rounded-full bg-app-orange text-white flex items-center justify-center shrink-0 hover:bg-app-orange-dark transition-colors active:scale-95"
+                 onClick={(e)=>{e.stopPropagation(); addToCart(product)}}>
+                  <Plus className="size-3.5"/>
+             </button>
+            
            </div>
 
        </div>
