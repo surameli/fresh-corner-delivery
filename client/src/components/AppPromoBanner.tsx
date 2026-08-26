@@ -1,4 +1,4 @@
-import { appPromoBannerData } from "../assets/assets"
+import { appPromoBannerData, assets } from "../assets/assets"
 
 
 const AppPromoBanner = () => {
@@ -15,9 +15,10 @@ const AppPromoBanner = () => {
           </div>
 
         </div>
-
+         {/* right side content */}
+       <img src={assets.delivery_truck} alt="Delivery Truck"  className="max-w-60 sm:max-w-120 xl:pr-10"/>
      </div>
-       {/* right side content */}
+      
     </section>
   )
 }
