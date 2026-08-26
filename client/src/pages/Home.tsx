@@ -2,6 +2,7 @@ import AppPromoBanner from "../components/AppPromoBanner.tsx"
 import Features from "../components/Home/Features.tsx"
 import Hero from "../components/Home/Hero.tsx"
 import HomeCategories from "../components/Home/HomeCategories.tsx"
+import Newsletter from "../components/Home/Newsletter.tsx"
 import PopularProducts from "../components/Home/PopularProducts.tsx"
 
 
@@ -14,6 +15,7 @@ const Home = () => {
       <HomeCategories/>
       <PopularProducts/>
       <AppPromoBanner/>
+      <Newsletter/>
     </div>
   )
 }
