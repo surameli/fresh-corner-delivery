@@ -9,7 +9,11 @@ const AppPromoBanner = () => {
         <div className="text-center md:text-left">
           <h2>{appPromoBannerData.title}</h2>
           <p>{appPromoBannerData.description}</p>
-          
+           <div>
+             <button>App Store</button>
+             <button>Google Play</button>
+          </div>
+
         </div>
 
      </div>
