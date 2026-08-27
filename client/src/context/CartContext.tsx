@@ -25,7 +25,7 @@ export function CartProvider({children} : {children : ReactNode}){
 
     
    })
-   const [isCartOpen, setIsCartOpen] = useState(true)
+   const [isCartOpen, setIsCartOpen] = useState(false)
     useEffect(()=>{
         localStorage.setItem("app_cart", JSON.stringify(items))
     },[items])
