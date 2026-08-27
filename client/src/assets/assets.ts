@@ -35,7 +35,7 @@ export const heroSectionData = {
     description: "Fresh, organic groceries delivered from local farms to your doorstep. Quality you can taste, convenience you deserve.",
     hero_image: hero_bg,
     hero_features: [
-        { icon: TruckIcon, title: "Free Delivery", desc: "Orders over $20" },
+        { icon: TruckIcon, title: "Free Delivery", desc: "Orders over 5000 Birr" },
         { icon: LeafIcon, title: "100% Organic", desc: "Certified products" },
         { icon: ClockIcon, title: "Same Day", desc: "Express delivery" },
         { icon: ShieldCheckIcon, title: "Secure Pay", desc: "Safe checkout" },
@@ -51,7 +51,7 @@ export const appPromoBannerData = {
 
 export const footerData = {
     brand: {
-        name: "Instacart",
+        name: "Fresh Delivery",
         description: "Bringing fresh, organic groceries straight from local farms to your doorstep. Nourish your home with Earth's finest.",
         socials: [
             { icon: SiFacebook, link: "#" },
@@ -82,13 +82,13 @@ export const footerData = {
     ],
 
     contact: [
-        { icon: MapPinIcon, text: "123 Green Valley Rd, Portland" },
-        { icon: PhoneIcon, text: "+1 (111) 123-4567" },
-        { icon: MailIcon, text: "hello@example.com" },
+      { icon: MapPinIcon, text: "Bole, Addis Ababa, Ethiopia" },
+      { icon: PhoneIcon, text: "+251 911 123 456" },
+      { icon: MailIcon, text: "freshdelivery.et@gmail.com" },
     ],
 
     bottom: {
-        copyright: "© 2026 Greatstack. All rights reserved.",
+        copyright: "© 2026 Fresh Delivery. All rights reserved.",
         links: [
             { label: "Privacy Policy", href: "#" },
             { label: "Terms of Service", href: "#" },
