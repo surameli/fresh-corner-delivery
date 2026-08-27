@@ -1,6 +1,7 @@
-import { ShoppingBagIcon, XIcon } from "lucide-react";
+import { MinusIcon, PlusIcon, ShoppingBagIcon, XIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { UpAndDown } from "@icon-park/react";
 
 
 const CartSidebar = () => {
@@ -54,7 +55,22 @@ const CartSidebar = () => {
                 <h4 className="text-sm font-semibold truncate">{item.product.name}</h4>
                 <p className="text-xs text-app-text-light">{currency}{item.product.price.toFixed(2)} / {item.product.unit}</p>
                 
+                   <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                        <button onClick={()=> updateQuantity(item.product._id , item.quantity - 1)}
+                        className="size-7 rounded-lg bg-white border border-app-border flex-center">
+                            <MinusIcon className="size-3" />
+                        </button>
+                        
 
+                        <button onClick={()=> updateQuantity(item.product._id , item.quantity + 1)}
+                        className="size-7 rounded-lg bg-white border border-app-border flex-center">
+                            <PlusIcon className="size-3" />
+                        </button>
+
+                    </div>
+                    <div></div>
+                </div>
                 
             </div>
 
