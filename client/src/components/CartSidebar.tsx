@@ -24,7 +24,7 @@ const CartSidebar = () => {
       <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col animate-slide-in-right">
           
           {/* header */}
-          
+           <div className="flex items-center justify-between p-5 border-b border-app-border">
           <div className="flex items-center gap-2">
             <ShoppingBagIcon className="size-5"/>
             <h2 className="text-lg font-medium">Your Cart</h2>
@@ -36,8 +36,33 @@ const CartSidebar = () => {
         
 
           </button>
+        </div>
+        {/* items */}
 
-      </div>
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          {items.length === 0 ? (
+          <div className="flex flex-col items-center justify-center
+             h-full text-center">
+            <ShoppingBagIcon className="size-16 text-app-border mb-4" />
+          <h3 className="text-lg font-medium mb-1">Your cart is empty</h3> 
+          </div>
+         ) : (
+           items.map((item)=>(
+          <div key={item.product._id} className="flex gap-3 bg-app-cream/60 rounded-xl p-3">
+            <img src={item.product.image} alt={item.product.name} className="size-16 rounded-lg object-cover shrink-0" />
+            <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold truncate">{item.product.name}</h4>
+                <p className="text-xs text-app-text-light">{currency}{item.product.price.toFixed(2)} / {item.product.unit}</p>
+                
+
+                
+            </div>
+
+            </div>
+        ))
+        )}
+         </div>
+        </div>
     </>
   )
 }
