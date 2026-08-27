@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon, ShoppingBagIcon, XIcon } from "lucide-react";
+import { MinusIcon, PlusIcon, ShoppingBagIcon, Trash2Icon, TrashIcon, XIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { UpAndDown } from "@icon-park/react";
@@ -61,7 +61,7 @@ const CartSidebar = () => {
                         className="size-7 rounded-lg bg-white border border-app-border flex-center">
                             <MinusIcon className="size-3" />
                         </button>
-                        
+                         <span className="text-sm font-semibold w-6 text-center">{item.quantity}</span>
 
                         <button onClick={()=> updateQuantity(item.product._id , item.quantity + 1)}
                         className="size-7 rounded-lg bg-white border border-app-border flex-center">
@@ -69,7 +69,18 @@ const CartSidebar = () => {
                         </button>
 
                     </div>
-                    <div></div>
+                    <div className="flex items-center gap-2">
+                        <span> 
+                            {currency}{(item.product.price * item.quantity).toFixed(2)}
+
+                        </span>
+                        <button onClick={()=>removeFromCart(item.product._id)}
+                        
+                        className="p-1 text-app-text-light hover:text-app-error transition-colors">
+                            <Trash2Icon className="size-4"/>
+                        </button>
+
+                    </div>
                 </div>
                 
             </div>
@@ -78,6 +89,22 @@ const CartSidebar = () => {
         ))
         )}
          </div>
+
+         {/* footer */}
+                       {items.length > 0 && (
+                   <div className="p-5 border-t border-app-border space-y-3">
+                   <div className="flex justify-between text-sm">
+                   <span className="text-app-text-light">Subtotal</span>
+                   <span className="font-medium">{currency}{cartTotal.toFixed
+                    (2)}</span>
+                    </div>
+                  <div className="flex justify-between text-sm">
+                  <span className="text-app-text-light">Delivery</span>
+                  <span className="font-medium"> {deliveryFee === 0 ? <span
+                  className="text-app-success">Free</span>: `${currency}$ {deliveryFee.toFixed(2)`}</span>
+                 </div>
+             </div>
+            )}
         </div>
     </>
   )
