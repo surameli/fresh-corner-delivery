@@ -15,12 +15,17 @@ const Footer = () => {
                     <Link to ='/' className="flex items-center gap-2 mb-4 ">
                     <BikeIcon className="size-6 text-white"/>
                     <span className="text-xl font-semibold">{footerData.brand.name}</span>
-
-                    
                     </Link>
-
                 </div>
+               <p className="text-sm text-white/70 mb-4">{footerData.brand.description}</p>
+               <div className="flex gap-3">
+                 {footerData.brand.socials.map((social, i)=>(
+                    <a key={i} href={social.link} className="size-9 rounded-lg bg-white/10 flex-center hover:bg-white/2">
+                        <social.icon/>
+                    </a>
+                 ))}
 
+               </div>
             </div>
             {/* bottom */}
             <div>
