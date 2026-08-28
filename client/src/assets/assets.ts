@@ -269,7 +269,7 @@ export const dummyProducts = [
         description: "Sweet and crunchy, Good for eyesight, Ideal for juices and salads",
         price: 44,
         originalPrice: 50,
-        image: "https://raw.githubusercontent.com/avinashdm/gs-images/main/greencart/ceqgisupuizyste9aifg.png",
+        image: "/Garlic Butter Potatoes recipe.jfif",
         category: "fruits-vegetables",
         unit: "500g",
         stock: 100,
