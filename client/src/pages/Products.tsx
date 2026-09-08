@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { Product } from "../types";
-import { dummyProducts } from "../assets/assets";
+import { categoriesData, dummyProducts } from "../assets/assets";
 
 
 const Products = () => {
@@ -24,6 +24,24 @@ const Products = () => {
     setProducts(dummyProducts.filter((p) => p.category === category  || p.category === ""));
     setLoading(false);
   };
+  const updateFilters = (key: string, value: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set(key, value);
+    } else {
+      newParams.delete(key);
+    }
+    if(key !== "page") {
+      newParams.delete("page");
+    }
+    setSearchParams(newParams);
+  };
+
+  const clearFilters = () => setSearchParams({});
+
+  const activeCategory = categoriesData.find((c) => c.slug === category);
+  const hasFilters = category || organic || sort || minprice || maxprice;
+
 
   useEffect(()=>{
     fetchProducts()
