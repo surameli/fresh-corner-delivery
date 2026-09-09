@@ -23,7 +23,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     setLoading(true);
-    setProducts(dummyProducts.filter((p) => p.category === category  || p.category === ""));
+    setProducts(dummyProducts.filter((p) => p.category === category  || category === ""));
     setLoading(false);
   };
   const updateFilters = (key: string, value: string) => {
@@ -42,7 +42,7 @@ const Products = () => {
   const clearFilters = () => setSearchParams({});
 
   const activeCategory = categoriesData.find((c) => c.slug === category);
-  const hasFilters = category || organic || sort || minprice || maxprice;
+  const hasFilters = category || organic || minprice || maxprice;
 
 
   useEffect(()=>{
@@ -58,7 +58,7 @@ const Products = () => {
            <Home className=" size-4" />
           </Link>
           <span >/</span>
-          <span className="text-app-green font-medium">{activeCategory? activeCategory.name : "All Products"}</span>
+          <span className="text-app-green font-medium">{activeCategory ? activeCategory.name : "All Products"}</span>
           
          </nav>
 
