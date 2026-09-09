@@ -840,7 +840,7 @@ export const dummyProducts = [
         id: "69c22613ae75a98c7cd13b2f",
     },
     {
-        _id: "69c22613ae75a98c7cd13b35",
+        _id: "69c22613ae75a98c7cd13b3C",
         name: "Fresh Cabbage 1kg",
         description: "Crisp leafy cabbage",
         price: 110,
@@ -856,7 +856,7 @@ export const dummyProducts = [
         createdAt: "2026-03-24T05:50:11.117Z",
         updatedAt: "2026-03-24T05:50:11.117Z",
         discount: 8,
-        id: "69c22613ae75a98c7cd13b35",
+        id: "69c22613ae75a98c7cd13b3c",
     },
     {
         _id: "69c22613ae75a98c7cd13b2d",
