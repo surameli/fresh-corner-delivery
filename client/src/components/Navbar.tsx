@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, LogOutIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -9,8 +9,20 @@ const Navbar = () => {
     const {cartCount, setIsCartOpen} = useCart();
     const [searchQuery, setsearchQuery] = useState("")
     const [userMenuopen, setuserMenuopen] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
     const navigate = useNavigate()
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                setIsScrolled(true)
+            } else {
+                setIsScrolled(false)
+            }
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
     const handelSearch =(e: React.SubmitEvent)=>{
          e.preventDefault()
@@ -27,15 +39,23 @@ const Navbar = () => {
     }
 
   return (
-    <nav className="bg-white sticky top-0 z-50 border-b border-app-border">
+    <nav className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+        isScrolled 
+            ? 'bg-white border-app-border' 
+            : 'bg-black/20 backdrop-blur-sm border-white/10'
+    }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4">
            {/* Logo */}
-           <Link to= '/' className="flex items-center gap-2 text-[22px] font-medium shrink-0">
+           <Link to= '/' className={`flex items-center gap-2 text-[22px] font-medium shrink-0 transition-colors ${
+               isScrolled ? 'text-zinc-900' : 'text-white'
+           }`}>
                <BikeIcon size={24}/> Fresh Delivery
            </Link>
            <div className="w-full flex items-center justify-end gap-4 lg:gap-10">
              {/* Nav Links - Desktop */}
-             <div className="hidden md:flex items-center gap-6 text-sm text-zinc-600">
+             <div className={`hidden md:flex items-center gap-6 text-sm transition-colors ${
+                 isScrolled ? 'text-zinc-600' : 'text-white'
+             }`}>
                 <Link to='/'>Home</Link>
                 <Link to='/products'>products</Link>
                 <Link to='/deals' className=" text-app-orange">Deals</Link>
@@ -43,12 +63,18 @@ const Navbar = () => {
              {/* search */}
              <form onSubmit={handelSearch} className="hidden sm:flex flex-1 max-w-sm text-xs sm:text-sm">
                 <div className="relative w-full">
-                   <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-zinc-500"/>
+                   <SearchIcon className={`absolute left-2.5 top-1/2 -translate-y-1/2 size-4 transition-colors ${
+                       isScrolled ? 'text-zinc-500' : 'text-white/60'
+                   }`}/>
                    <input type="text" 
                    placeholder="Search for groceries..."
                    value={searchQuery}
                    onChange={(e)=> setsearchQuery(e.target.value)}
-                   className=" w-full pl-8 p-2 bg-orange-50 rounded-full ring ring-app-orange/15 focus:ring-app-orange/30"/>
+                   className={`w-full pl-8 p-2 rounded-full transition-all ${
+                       isScrolled 
+                           ? 'bg-gray-100 text-zinc-900 placeholder-zinc-500 ring ring-gray-200 focus:ring-gray-300' 
+                           : 'bg-white/10 text-white placeholder-white/50 ring ring-white/20 focus:ring-white/40 backdrop-blur-sm'
+                   }`}/>
 
                 </div>
 
@@ -56,8 +82,10 @@ const Navbar = () => {
              {/* right Action */}
              <div className="flex items-center gap-3">
                 {/* cart */}
-                <button className="relative p-2 rounded-xl"onClick={()=> setIsCartOpen(true)}>
-                     <ShoppingCartIcon className="size-5 text-zinc-900"/>
+                <button className="relative p-2 rounded-xl transition-colors"onClick={()=> setIsCartOpen(true)}>
+                     <ShoppingCartIcon className={`size-5 transition-colors ${
+                         isScrolled ? 'text-zinc-900' : 'text-white'
+                     }`}/>
                      {cartCount>0 && <span className="absolute -top-1 -right-1 size-4 bg-app-orange text-white text-[10px] rounded-full flex-center">{cartCount}</span>}
                 </button>
                 {/* user */}
@@ -67,16 +95,22 @@ const Navbar = () => {
                              <div className="size-7 rounded-full bg-green-950 text-white flex-center">
                                 {user.name.charAt(0).toUpperCase()}
                              </div>
-                             <ChevronDownIcon className="size-3 text-zinc-500"/>
+                             <ChevronDownIcon className={`size-3 transition-colors ${
+                                 isScrolled ? 'text-zinc-500' : 'text-white/60'
+                             }`}/>
                         </button>
                     ):(
                         <div className="flex-center gap-2">
                              <Link to='/login' className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-950 rounded-full hover:bg-green-950-lighr transition-colors">
                              <UserIcon size={16}/> sign In
                              </Link>
-                             {userMenuopen? <XIcon className="md:hidden" 
+                             {userMenuopen? <XIcon className={`md:hidden transition-colors ${
+                                 isScrolled ? 'text-zinc-900' : 'text-white'
+                             }`} 
                              onClick={()=>setuserMenuopen(!userMenuopen)}/>: 
-                             <MenuIcon className="md:hidden"
+                             <MenuIcon className={`md:hidden transition-colors ${
+                                 isScrolled ? 'text-zinc-900' : 'text-white'
+                             }`}
                              onClick={()=>
                                 setuserMenuopen(!userMenuopen)
                              }/> }
