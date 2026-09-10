@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, HomeIcon, LeafIcon } from "lucide-react";
+import { ArrowLeftIcon, HomeIcon, LeafIcon, Star, StarIcon } from "lucide-react";
 
 
 const ProductPage = () => {
@@ -93,6 +93,26 @@ const ProductPage = () => {
             </div>
          </div>
          {/* right side - details */}
+         <div className=" p-6 md:p-10 flex flex-col justify-center ">
+           <span className="text-xs text-app-text-light mb-2 capitalize tracking-wider">{categoryLabel}</span>
+           <h1 className="text-2xl md:text-3xl font-semibold mb-3 text-app-green">{product.name}</h1>
+           {/* <p className="text-base text-app-text-light mb-6">{product.description}</p> */}
+            {/* rating */}
+            {product.rating > 0 && (
+              <div className="flex items-center gap-2 mb-5">
+              <div className="flex items-center gap-0.5"> 
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <StarIcon
+                    key={star}
+                    className={`w-4 h-4 ${star <= Math.round(product.rating) ? "text-app-warning fill-app-warning" : "text-app-border"}`}
+                  />
+                ))}
+                <span className="text-sm font-medium text-app-text">{product.rating}</span>
+                <span className="text-sm text-app-text-light">({product.reviewCount} reviews)</span>
+              </div>
+              </div>
+            )}
+         </div>
 
          
          </div>
