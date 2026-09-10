@@ -107,11 +107,20 @@ const ProductPage = () => {
                     className={`w-4 h-4 ${star <= Math.round(product.rating) ? "text-app-warning fill-app-warning" : "text-app-border"}`}
                   />
                 ))}
+                </div>
                 <span className="text-sm font-medium text-app-text">{product.rating}</span>
                 <span className="text-sm text-app-text-light">({product.reviewCount} reviews)</span>
-              </div>
+              
               </div>
             )}
+
+            {/* price */}
+            <div className="flex items-baseline gap-3 mb-5">
+              <span className="text-3xl md:text-4xl font-semibold text-app-green">{product.price.toFixed(2)} {currency}</span>
+              {product.originalPrice > product.price && (
+                <span className="text-lg text-app-text-light line-through">{product.originalPrice.toFixed(2)} {currency}</span>
+              )}
+            </div>
          </div>
 
          
