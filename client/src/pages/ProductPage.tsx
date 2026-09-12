@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, HomeIcon, LeafIcon, Star, StarIcon } from "lucide-react";
+import { ArrowLeftIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, Star, StarIcon } from "lucide-react";
 
 
 const ProductPage = () => {
@@ -121,9 +121,41 @@ const ProductPage = () => {
                 <span className="text-lg text-app-text-light line-through">{product.originalPrice.toFixed(2)} {currency}</span>
               )}
             </div>
-         </div>
+
+            {/* description */}
+            <p className="text-sm text-app-text-light leading-relaxed mb-6">{product.description}</p>
+            {/* stock */}
+            <div className="mb-6">
+              {product.stock > 0 ? (
+                <span className="text-sm text-app-success font-medium">✓  In Stock: ({product.stock} available)</span>
+              ) : (
+                <span className="text-sm text-app-error font-medium">Out of Stock</span>
+              )}
+            </div>
+            {/* quality + Add to Cart */}
+            <div className="flex items-center gap-4">
+              {/* quality */}
+              <div className="flex items-center border border-app-border rounded-xl overflow-hidden">
+                <button className="p-3 hover:bg-app-cream transition-colors">
+                    <MinusIcon className="w-4 h-4"/>
+                </button>
+                <span className="px-4 text-sm font-semibold min-w-[40px] text-center">{displayQuantity}</span>
+                <button className="p-3 hover:bg-app-cream transition-colors">
+                    <PlusIcon className="w-4 h-4"/>
+                 </button>
+                  
+              </div>
+              {/* add to cart */}
+              <div className="flex items-center gap-2">
+                <button className="bg-app-green text-white py-2 px-4 rounded-md hover:bg-app-dark-green transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
 
          
+
          </div>
         </div>
 
