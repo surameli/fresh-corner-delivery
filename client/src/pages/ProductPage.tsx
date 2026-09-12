@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, Star, StarIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, Star, StarIcon } from "lucide-react";
 import DummyReviewsSection from "../assets/DummyReviewsSection";
 import ProductCard from "../components/ProductCard";
 
@@ -198,7 +198,15 @@ const ProductPage = () => {
 
          {relatedProducts.length > 0 && (
           <section className="mt-12 mb-44">
-            <div>
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-semibold text-app-green">Related Products</h2>
+                <p className="text-sm text-app-text-light mt-1">More from {categoryLabel}</p>
+              </div>
+              <Link className=" text-sm font-semibold text-app-orange hover:text-app-orange-dark flex items-center gap-1 transition-colors"
+               to={`/products?category=${product.category}`}>
+                 View All <ArrowRightIcon className="size-4"/>
+              </Link>
 
             </div>
 
