@@ -105,6 +105,32 @@ const MyOrders = () => {
                    </div>
 
                    {/* items thumbnails */}
+
+                   <div className=" flex items-center gap-2 mb-3">
+                    {orders.items.slice(0,4).map((item, i)=>(
+                      <img key ={i} src={item.image} alt={item.name}  className="size-12 sm:size-16 rounded-lg object-cover border border-app-border"/>
+                    ))}
+
+                    { orders.items.length > 4 && <div className="size-12
+                                  sm:size-16 rounded-lg bg-app-cream flex-center text-xs
+                                  font-semibold text-app-text-light">
+                      +{orders.items.length - 4 }
+                    </div>
+
+                    }
+
+                   </div>
+
+
+                   {/* total items & price */}
+
+                   <div className="flex justify-between items-center pt-3 text-sm">
+
+                    <span className="text-app-text-light">{orders.items.length} items</span>
+                    <span className="font-semibold text-app-green">{orders.total.toFixed(2)}{currency}</span>
+
+                   </div>
+
                 </Link>
               ))}
                
@@ -121,3 +147,7 @@ const MyOrders = () => {
 }
 
 export default MyOrders
+
+
+
+ 
