@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import type { Product } from "../types"
 import { dummyProducts } from "../assets/assets"
 import { Zap } from "lucide-react"
