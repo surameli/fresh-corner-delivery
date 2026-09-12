@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, ArrowRightIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, Star, StarIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, StarIcon } from "lucide-react";
 import DummyReviewsSection from "../assets/DummyReviewsSection";
 import ProductCard from "../components/ProductCard";
 
@@ -94,6 +94,8 @@ const ProductPage = () => {
            {/* left side - image */}
            <div className="relative flex-center p-8 md:p-12 min-h-[320px] md:min-h-[480px]">
               <img src={product.image} alt={product.name} className="max-h-[360px] w-auto object-contain" />
+
+              
            
            {/* badges */}
             <div className="absolute top-5 left-5 flex flex-wrap gap-1.5">
