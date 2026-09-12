@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, Star, StarIcon } from "lucide-react";
+import { ArrowLeftIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, Star, StarIcon } from "lucide-react";
 
 
 const ProductPage = () => {
@@ -36,6 +36,23 @@ const ProductPage = () => {
   const cartItem = items.find((item) => item.product._id === product._id);
   const incart = !! cartItem;
   const displayQuantity = incart ? cartItem!.quantity : localQuantity;
+  
+
+  const handleMinus = () =>{
+    if(incart){
+      if(cartItem.quantity > 1) updateQuantity(product._id, cartItem.quantity - 1 )
+        else removeFromCart(product._id)
+    }else{
+      setLocalQuantity(Math.max(1, localQuantity-1))
+    }
+  }
+
+
+   const handlePlus = () =>{
+    if(incart) updateQuantity(product._id, cartItem.quantity + 1 )
+        else setLocalQuantity(localQuantity + 1)
+    
+  }
 
   const categoryLabel = product.category.replace(/-/g, ' ');
 
@@ -136,21 +153,30 @@ const ProductPage = () => {
             <div className="flex items-center gap-4">
               {/* quality */}
               <div className="flex items-center border border-app-border rounded-xl overflow-hidden">
-                <button className="p-3 hover:bg-app-cream transition-colors">
+                <button  onClick={handleMinus}
+                 className="p-3 hover:bg-app-cream transition-colors">
                     <MinusIcon className="w-4 h-4"/>
                 </button>
                 <span className="px-4 text-sm font-semibold min-w-[40px] text-center">{displayQuantity}</span>
-                <button className="p-3 hover:bg-app-cream transition-colors">
+                <button onClick={handlePlus}
+                className="p-3 hover:bg-app-cream transition-colors">
                     <PlusIcon className="w-4 h-4"/>
                  </button>
                   
               </div>
               {/* add to cart */}
-              <div className="flex items-center gap-2">
-                <button className="bg-app-green text-white py-2 px-4 rounded-md hover:bg-app-dark-green transition-colors">
-                  Add to Cart
+              
+                <button onClick={() => {
+                  if (!incart) addToCart(product, localQuantity)
+                   }}
+                  disabled={product.stock === 0}
+                className={`flex-1 py-3 font-semibold rounded-xl transition-colors flex-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed
+                                    active:scale-[0.98] ${incart ? "bg-app-cream text-app-green border border-app-green":
+                                    "bg-app-orange text-white hover:bg-app-orange-dark"}`}>
+                   <ShoppingCart className="w-4 h-4 "/>
+                  {incart ? " Added to Cart" : "Add to Cart"}
                 </button>
-              </div>
+              
             </div>
           </div>
 
@@ -172,3 +198,8 @@ const ProductPage = () => {
 }
 
 export default ProductPage
+
+
+
+
+ 
