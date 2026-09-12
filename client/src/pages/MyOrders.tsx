@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Order } from "../types";
+import type { Order } from "../types";
 import { useSearchParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { dummyDashboardOrdersData } from "../assets/assets";
@@ -48,6 +48,16 @@ const MyOrders = () => {
          My orders
         </h1>
         {/* tabs */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {tabs.map((tab)=>(
+            <button key={tab} onClick={()=> setActivetab(tab)}  className={`px-4 py-2 text-sm font-medium rounded-xl whitespace-nowrap transition-colors ${activetab === tab ? "bg-app-green text-white" : "bg-white text-app-text-light hover:bg-app-cream"}`}>
+              {tab === 'all' ? "All Orders" : tab}
+            </button>
+          ))}
+
+        </div>
+
+        {/* orders list */}
 
         
 
