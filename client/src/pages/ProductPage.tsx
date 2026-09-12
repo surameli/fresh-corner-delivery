@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { dummyProducts } from "../assets/assets";
 import Loading from "../components/loading";
 import { ArrowLeftIcon, HomeIcon, LeafIcon, MinusIcon, PlusIcon, ShoppingCart, Star, StarIcon } from "lucide-react";
+import DummyReviewsSection from "../assets/DummyReviewsSection";
+import ProductCard from "../components/ProductCard";
 
 
 const ProductPage = () => {
@@ -188,8 +190,29 @@ const ProductPage = () => {
 
          {/* customer reviews section */}
 
+          {product.reviewCount > 0 && <DummyReviewsSection product={product}/>}
+        
+
 
          {/* related products section */}
+
+         {relatedProducts.length > 0 && (
+          <section className="mt-12 mb-44">
+            <div>
+
+            </div>
+
+            <div className=" grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 xl:gap-8">
+
+              {relatedProducts.slice(0,5).map((rp)=>(
+                <ProductCard key={rp._id} product={rp}/>
+              ))}
+
+            </div>
+
+          </section>
+
+         )}
 
       </div>
 
