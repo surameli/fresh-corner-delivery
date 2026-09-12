@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import type { Order } from "../types";
 import { Link, useSearchParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { dummyDashboardOrdersData } from "../assets/assets";
+import { dummyDashboardOrdersData, statusColors } from "../assets/assets";
 import Loading from "../components/loading";
-import { PackageIcon } from "lucide-react";
+import { Calendar, CalendarIcon, ChevronRightIcon, PackageIcon } from "lucide-react";
+
 
 
 
@@ -76,7 +77,39 @@ const MyOrders = () => {
 
             </div>
           ):(
-             <div></div>
+             <div className=" space-y-4">
+              {orders.map ((orders) =>(
+                <Link  key ={orders._id} to={`/orders/${orders._id}`} className="block max-w-4xl bg-white rounded-2xl p-5 hover:shadow transition-all">
+                   {/* orders id date and status */}
+
+                   <div className="flex items-start justify-between mb-3">
+                     {/* left */}
+                     <div>
+                      <p className="text-sm font-semibold text-app-green">Order #{orders._id.slice(-8).toUpperCase()}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <CalendarIcon className="size-3 text-app-text-light"/>
+                        <span className="text-xs text-app-text-light">{new Date(orders.createdAt).toLocaleDateString("en-US", {month : "short", day: "numeric", year: "numeric"})}</span>
+
+                      </div>
+                     </div>
+
+                     {/* right */}
+                     <div className="flex items-center gap-2">
+                      <span className={`px-4 py-1 text-xs font-medium rounded-full ${statusColors[orders.status]||"bg-gray-100 text-gray-700" } `}>
+                        {orders.status}
+                      </span>
+                        <ChevronRightIcon className="size-4 text-app-text-light" />
+                        
+                     </div>
+
+                   </div>
+
+                   {/* items thumbnails */}
+                </Link>
+              ))}
+               
+
+             </div>
           )}
 
         
