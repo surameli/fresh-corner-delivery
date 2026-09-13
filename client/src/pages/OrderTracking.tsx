@@ -5,6 +5,8 @@ import { dummyDashboardOrdersData } from "../assets/assets";
 import Loading from "../components/loading";
 import { ArrowLeftIcon } from "lucide-react";
 import OrderOTP from "../components/OrderTracking/OrderOTP";
+import LiveMap from "../components/OrderTracking/LiveMap";
+import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
 
 
 const OrderTracking = () => {
@@ -49,6 +51,29 @@ const OrderTracking = () => {
           <div className="lg:col-span-2 space-y-6">
             {/* otp card */}
             <OrderOTP order = {order}/>
+            {/* live tracking map */}
+            <LiveMap order={order} liveLocation={livelocation}/>
+            {/* progress timeline */}
+            <OrderTimeLine order={order} />
+
+            {/* delivery person */}
+            {order?.deliveryPartner && order.status !== "deliverd" && order.status !== "cancelled" && (
+              <div className="bg-white rounded-2xl p-5 flrx items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="size-11 rounded-full bg-app-green flex-center">
+                    <span className="text-white font-semibold text-sm">
+                      {order.deliveryPartner.name.charAt(0)}
+
+                    </span>
+                  </div>
+                  <div>
+                    
+                  </div>
+
+                </div>
+
+              </div>
+            ) }
 
           </div>
 
