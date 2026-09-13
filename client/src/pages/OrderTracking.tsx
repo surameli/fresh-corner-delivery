@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import type { Order } from "../types";
 import { dummyDashboardOrdersData } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon, PhoneIcon } from "lucide-react";
+import { ArrowLeftIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import OrderOTP from "../components/OrderTracking/OrderOTP";
 import LiveMap from "../components/OrderTracking/LiveMap";
 import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
@@ -82,6 +82,25 @@ const OrderTracking = () => {
           </div>
 
           {/* right side - orders details sidebars */}
+          <div className="space-y-5">
+            {/* delivery address */}
+            <div className="bg-white rounded-2xl p-5">
+              <h3>
+                <MapPinIcon className="size-4"/>
+                Delivery Address
+              </h3>
+              <p className="text-sm text-app-text-light leading-relaxed">
+                {order?.shippingAddress.label}
+                <br />
+                {order?.shippingAddress.address}
+                <br />
+                {order?.shippingAddress.city}, {order?.shippingAddress.state} {order?.shippingAddress.zip}
+              </p>
+
+            </div>
+              
+
+          </div>
 
 
 
