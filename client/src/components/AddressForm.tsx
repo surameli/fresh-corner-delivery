@@ -70,7 +70,11 @@ const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId}: any) =
 
             {/* submit button */}
 
-            <button type='submit'>
+            <button type='submit' className='mt-6 w-full py-3 bg-app-green text-white font-semibold rounded-xl hover:bg-app-green-light transition-colors'>
+               
+               {editingId ? "update Address" : "save Address"}
+
+
 
             </button>
 
