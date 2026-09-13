@@ -4,6 +4,7 @@ import type { Order } from "../types";
 import { dummyDashboardOrdersData } from "../assets/assets";
 import Loading from "../components/loading";
 import { ArrowLeftIcon } from "lucide-react";
+import OrderOTP from "../components/OrderTracking/OrderOTP";
 
 
 const OrderTracking = () => {
@@ -40,6 +41,20 @@ const OrderTracking = () => {
           <span className={`px-4 py-1.5 text-sm font-semibold rounded-full ${order!.status === "Delivered"  ?  "bg-green-100 text-green-700" :order!.status ==="cancelled" ? "bg-red-100 text-red-700" : "bg-app-orange/10 text-app-orange" }`}>
              {order!.status}
           </span>
+
+        </div>
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/*letf site  timeline + map Area */}
+
+          <div className="lg:col-span-2 space-y-6">
+            {/* otp card */}
+            <OrderOTP order = {order}/>
+
+          </div>
+
+          {/* right side - orders details sidebars */}
+
+
 
         </div>
 
