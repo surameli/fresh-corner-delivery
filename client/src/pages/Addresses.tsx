@@ -4,6 +4,7 @@ import type { Address } from "../types"
 import { useEffect, useState } from "react"
 import Loading from "../components/loading"
 import AddressCard from "../components/AddressCard"
+import AddressForm from "../components/AddressForm"
 
 
 const Addresses = () => {
@@ -48,6 +49,8 @@ const Addresses = () => {
           </button>
         </div>
          {/* form modal */}
+          {showForm && <AddressForm resetForm={resetForm} handlesubmit = {handelsubmit} form= {form} setForm={setform} edithingId = {editingId}/>}
+
 
          {/* addresses list */}
          {
