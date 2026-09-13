@@ -4,7 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { dummyDashboardOrdersData, statusColors } from "../assets/assets";
 import Loading from "../components/loading";
-import { Calendar, CalendarIcon, ChevronRightIcon, PackageIcon } from "lucide-react";
+import { CalendarIcon, ChevronRightIcon, PackageIcon } from "lucide-react";
 
 
 
