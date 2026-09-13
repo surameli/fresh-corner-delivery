@@ -1,6 +1,6 @@
 import { ArrowUpRightIcon, BikeIcon, ChevronDownIcon, LogOutIcon, MapPinIcon, MenuIcon, PackageIcon, SearchIcon, ShieldIcon, ShoppingCartIcon,  UserIcon, XIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 
@@ -11,6 +11,8 @@ const Navbar = () => {
     const [userMenuopen, setuserMenuopen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
     const navigate = useNavigate()
+    const location = useLocation()
+    const isHomePage = location.pathname === "/"
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,21 +42,27 @@ const Navbar = () => {
 
   return (
     <nav className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-        isScrolled 
-            ? 'bg-white border-app-border' 
-            : 'bg-black/20 backdrop-blur-sm border-white/10'
+        isHomePage
+            ? isScrolled 
+                ? 'bg-white border-app-border' 
+                : 'bg-black/20 backdrop-blur-sm border-white/10'
+            : 'bg-white border-app-border'
     }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 gap-4">
            {/* Logo */}
            <Link to= '/' className={`flex items-center gap-2 text-[22px] font-medium shrink-0 transition-colors ${
-               isScrolled ? 'text-zinc-900' : 'text-white'
+               isHomePage
+                   ? isScrolled ? 'text-zinc-900' : 'text-white'
+                   : 'text-zinc-900'
            }`}>
                <BikeIcon size={24}/> Fresh Delivery
            </Link>
            <div className="w-full flex items-center justify-end gap-4 lg:gap-10">
              {/* Nav Links - Desktop */}
              <div className={`hidden md:flex items-center gap-6 text-sm transition-colors ${
-                 isScrolled ? 'text-zinc-600' : 'text-white'
+                 isHomePage
+                     ? isScrolled ? 'text-zinc-600' : 'text-white'
+                     : 'text-zinc-600'
              }`}>
                 <Link to='/'>Home</Link>
                 <Link to='/products'>products</Link>
@@ -64,16 +72,20 @@ const Navbar = () => {
              <form onSubmit={handelSearch} className="hidden sm:flex flex-1 max-w-sm text-xs sm:text-sm">
                 <div className="relative w-full">
                    <SearchIcon className={`absolute left-2.5 top-1/2 -translate-y-1/2 size-4 transition-colors ${
-                       isScrolled ? 'text-zinc-500' : 'text-white/60'
+                       isHomePage
+                           ? isScrolled ? 'text-zinc-500' : 'text-white/60'
+                           : 'text-zinc-500'
                    }`}/>
                    <input type="text" 
                    placeholder="Search for groceries..."
                    value={searchQuery}
                    onChange={(e)=> setsearchQuery(e.target.value)}
                    className={`w-full pl-8 p-2 rounded-full transition-all ${
-                       isScrolled 
-                           ? 'bg-gray-100 text-zinc-900 placeholder-zinc-500 ring ring-gray-200 focus:ring-gray-300' 
-                           : 'bg-white/10 text-white placeholder-white/50 ring ring-white/20 focus:ring-white/40 backdrop-blur-sm'
+                       isHomePage
+                           ? isScrolled 
+                               ? 'bg-gray-100 text-zinc-900 placeholder-zinc-500 ring ring-gray-200 focus:ring-gray-300' 
+                               : 'bg-white/10 text-white placeholder-white/50 ring ring-white/20 focus:ring-white/40 backdrop-blur-sm'
+                           : 'bg-gray-100 text-zinc-900 placeholder-zinc-500 ring ring-gray-200 focus:ring-gray-300'
                    }`}/>
 
                 </div>
@@ -84,7 +96,9 @@ const Navbar = () => {
                 {/* cart */}
                 <button className="relative p-2 rounded-xl transition-colors"onClick={()=> setIsCartOpen(true)}>
                      <ShoppingCartIcon className={`size-5 transition-colors ${
-                         isScrolled ? 'text-zinc-900' : 'text-white'
+                         isHomePage
+                             ? isScrolled ? 'text-zinc-900' : 'text-white'
+                             : 'text-zinc-900'
                      }`}/>
                      {cartCount>0 && <span className="absolute -top-1 -right-1 size-4 bg-app-orange text-white text-[10px] rounded-full flex-center">{cartCount}</span>}
                 </button>
@@ -96,7 +110,9 @@ const Navbar = () => {
                                 {user.name.charAt(0).toUpperCase()}
                              </div>
                              <ChevronDownIcon className={`size-3 transition-colors ${
-                                 isScrolled ? 'text-zinc-500' : 'text-white/60'
+                                 isHomePage
+                                     ? isScrolled ? 'text-zinc-500' : 'text-white/60'
+                                     : 'text-zinc-500'
                              }`}/>
                         </button>
                     ):(
@@ -105,11 +121,15 @@ const Navbar = () => {
                              <UserIcon size={16}/> sign In
                              </Link>
                              {userMenuopen? <XIcon className={`md:hidden transition-colors ${
-                                 isScrolled ? 'text-zinc-900' : 'text-white'
+                                 isHomePage
+                                     ? isScrolled ? 'text-zinc-900' : 'text-white'
+                                     : 'text-zinc-900'
                              }`} 
-                             onClick={()=>setuserMenuopen(!userMenuopen)}/>: 
+                             onClick={()=>setuserMenuopen(!userMenuopen)}/> : 
                              <MenuIcon className={`md:hidden transition-colors ${
-                                 isScrolled ? 'text-zinc-900' : 'text-white'
+                                 isHomePage
+                                     ? isScrolled ? 'text-zinc-900' : 'text-white'
+                                     : 'text-zinc-900'
                              }`}
                              onClick={()=>
                                 setuserMenuopen(!userMenuopen)
