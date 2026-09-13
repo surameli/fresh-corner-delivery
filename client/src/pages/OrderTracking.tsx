@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import type { Order } from "../types";
 import { dummyDashboardOrdersData } from "../assets/assets";
 import Loading from "../components/loading";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, PhoneIcon } from "lucide-react";
 import OrderOTP from "../components/OrderTracking/OrderOTP";
 import LiveMap from "../components/OrderTracking/LiveMap";
 import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
@@ -58,7 +58,7 @@ const OrderTracking = () => {
 
             {/* delivery person */}
             {order?.deliveryPartner && order.status !== "deliverd" && order.status !== "cancelled" && (
-              <div className="bg-white rounded-2xl p-5 flrx items-center justify-between">
+              <div className="bg-white rounded-2xl p-5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="size-11 rounded-full bg-app-green flex-center">
                     <span className="text-white font-semibold text-sm">
@@ -67,10 +67,14 @@ const OrderTracking = () => {
                     </span>
                   </div>
                   <div>
-                    
+                    <p className="text-sm font-semibold text-ap-green"> {order.deliveryPartner.name}</p>
+                    <p className="text-xs text-app-text-light capitalize">{order.deliveryPartner.vehicleType} • Delivery Partner </p>
                   </div>
 
                 </div>
+                <a href={`tel:${order.deliveryPartner.phone}`} className="p-2.5 bg-app-cream rounded-xl hover:bg-app-cream-dark transition-colors">
+                  <PhoneIcon className="size-4 text-app-green"/>
+                </a>
 
               </div>
             ) }
