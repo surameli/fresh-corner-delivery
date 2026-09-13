@@ -3,11 +3,11 @@ import type { Address } from "../types"
 
 interface AddressCardProps{
     addr : Address;
-    onEditHandeler: (addr: Address)=> void
-    setAddresses:(addresses: Address)=> void
+    onEditHandler: (addr: Address)=> void
+    setAddresses:(addresses: Address[])=> void
 }
 
-const AddressCard = ({addr, onEditHandeler, setAddresses } : AddressCardProps) => {
+const AddressCard = ({addr, onEditHandler, setAddresses } : AddressCardProps) => {
 
 
     const handleDelete = async (id: string) =>{

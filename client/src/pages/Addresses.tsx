@@ -3,6 +3,7 @@ import { dummyAddressData } from "../assets/assets"
 import type { Address } from "../types"
 import { useEffect, useState } from "react"
 import Loading from "../components/loading"
+import AddressCard from "../components/AddressCard"
 
 
 const Addresses = () => {
@@ -61,8 +62,8 @@ const Addresses = () => {
             </div>
           ):(
             <div className="space-y-4">
-              {addresses.map((add)=>(
-                 <div>{add.address}</div>
+              {addresses.map((addr)=>(
+                <AddressCard key={addr._id} addr={addr} onEditHandler={onEditHandler} setAddresses={setAddresses}/>
               ))}
 
             </div>
