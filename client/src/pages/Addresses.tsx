@@ -56,11 +56,14 @@ const Addresses = () => {
             <div className="text-center py-16">
               <MapPinIcon className="size-16 text-app-border mx-auto mb-4"/>
               <h2 className="text-lg font-semibold text-app-green mb-2">NO addresses Saved</h2>
-              <p>Add an address for faster checkout</p>
+              <p className="text-sm text-app-text-light">Add an address for faster checkout</p>
 
             </div>
           ):(
-            <div>
+            <div className="space-y-4">
+              {addresses.map((add)=>(
+                 <div>{add.address}</div>
+              ))}
 
             </div>
           )
