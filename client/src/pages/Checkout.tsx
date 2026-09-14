@@ -5,6 +5,9 @@ import { useState } from "react";
 import type { Address } from "../types";
 import { Label } from "@icon-park/react";
 import { ArrowLeft, CheckIcon, ChevronRightIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
+import CheckoutAddress from "../components/Checkout/CheckoutAddress";
+import CheckoutPayment from "../components/Checkout/CheckoutPayment";
+import CheckoutReview from "../components/Checkout/CheckoutReview";
 
 
 const Checkout = () => {
@@ -102,6 +105,40 @@ const [address, setAddress] = useState<Address>({
             </div>
           ))}
 
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* main form */}
+          <div className="md:col-span-2">
+            {step === "address" && <CheckoutAddress address={address} setAddress= {setAddress} setStep = {setStep} user = {user}/>}
+             {step === "payment" && <CheckoutPayment paymentMethod={paymentMethod} setPaymentMethod= {setpaymentMethod} setStep = {setStep} />}
+              {step === "review" && <CheckoutReview address={address}  items = {items} handlePlaceOrder = {handlePlaceorder} loading = {loading} total={total}/>}
+
+          </div>
+           {/* order summary sidebar */}
+           <div className="bg-white rounded-2xl p-5 h-fit sticky top-24">
+            <h3 className="text-sm font-semibold text-app-green mb-4">order Summary</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                  <span className="text-app-text-light">Subtotal ({items.length}items)</span>
+                  <span>{cartTotal.toFixed(2)} {currency}</span>
+              </div>
+              <div className="flex justify-between">
+                  <span className="text-app-text-light">Delivery</span>
+                  <span>{deliveryFee === 0 ? <span className="text-app-success">Free</span> : `${deliveryFee.toFixed(2)}${currency}`}</span>
+              </div>
+
+              <div className="flex justify-between">
+                  <span className="text-app-text-light">Tax</span>
+                  <span>{tax.toFixed(2)} {currency}</span>
+                </div>  
+                 
+                 <div className="flex justify-between pt-3 border-t border-app-border text-base font-semibold">
+                  <span >Total</span>
+                  <span className="text-app-green">{cartTotal.toFixed(2)} {currency}</span>  
+                </div>
+            </div>
+
+           </div>
         </div>
 
       </div>
