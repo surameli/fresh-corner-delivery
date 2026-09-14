@@ -4,7 +4,7 @@ import { dummyAddressData } from "../assets/assets";
 import { useState } from "react";
 import type { Address } from "../types";
 import { Label } from "@icon-park/react";
-import { ArrowLeft, CheckIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
+import { ArrowLeft, CheckIcon, ChevronRightIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
 
 
 const Checkout = () => {
@@ -87,6 +87,22 @@ const [address, setAddress] = useState<Address>({
         <button onClick={()=> navigate(-1)} className="flex items-center gap-2 text-sm text-app-text-light hover:text-app-green mb-6 transition-colors">
           <ArrowLeft className="size-4"/> Back
         </button>
+
+        <h1 className="text-2xl font-semibold text-app-green mb-8">Checkout</h1>
+
+        {/* steps */}
+        <div className="flex items-center gap-2 mb-8">
+          {steps.map((s, i)=>(
+            <div key={s.key} className="flex items-center gap-2">
+              <button onClick={()=> setStep(s.key)} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${step === s.key ? "bg-app-green text-white" : "bg-white text-app-text-light"}`}>
+                <s.icon className="size-4"/>{s.label}
+                {i < steps.length -  1 && <ChevronRightIcon className="size-4 text-app-text-light"/>}
+              </button>
+
+            </div>
+          ))}
+
+        </div>
 
       </div>
 
