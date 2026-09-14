@@ -4,7 +4,7 @@ import { dummyAddressData } from "../assets/assets";
 import { useState } from "react";
 import type { Address } from "../types";
 import { Label } from "@icon-park/react";
-import { CheckIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
+import { ArrowLeft, CheckIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
 
 
 const Checkout = () => {
@@ -42,10 +42,55 @@ const [address, setAddress] = useState<Address>({
     navigate("/orders")
   }
 
+  // populate address from user's default address
+
+  useState(()=>{
+    if(user?.addresses?.length){
+      const defaultAddr = user.addresses.find((a)=> a.isDefault) || user.addresses[0] 
+      setAddress({
+                 _id: defaultAddr?._id,
+                 label: defaultAddr?.label,
+                 address: defaultAddr?.address,
+                 city: defaultAddr?.city,
+                 state: defaultAddr?.state,
+                 zip: defaultAddr?.zip,
+                 isDefault: defaultAddr?.isDefault,
+                 lat: defaultAddr?.lat,
+                 lng: defaultAddr?.lng,
+      })
+    }
+  })
+
+
+  if(items.length === 0){
+    return(
+      <div className="min-h-screen bg-app-cream flex-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-app-green mb-2">Your cart is empty</h2>
+          <p className="text-sm text-app-text-light mb-4">Add some Products to Checkout</p>
+          <button onClick={()=> navigate('/products')} className="px-5 py-2.5 bg-app-green text-white text-sm font-medium rounded-xl hover:bg-app-green-light transition-colors">
+            Browse Products
+          </button>
+
+        </div>
+
+      </div>
+    )
+  }
+
 
    
   return (
-    <div>Checkout</div>
+    <div className="min-h-screen bg-app-cream">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* back button */}
+        <button onClick={()=> navigate(-1)} className="flex items-center gap-2 text-sm text-app-text-light hover:text-app-green mb-6 transition-colors">
+          <ArrowLeft className="size-4"/> Back
+        </button>
+
+      </div>
+
+    </div>
   )
 }
 
