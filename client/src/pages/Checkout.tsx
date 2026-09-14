@@ -3,7 +3,6 @@ import { useCart } from "../context/CartContext";
 import { dummyAddressData } from "../assets/assets";
 import { useState } from "react";
 import type { Address } from "../types";
-import { Label } from "@icon-park/react";
 import { ArrowLeft, CheckIcon, ChevronRightIcon, CreditCardIcon, MapPinIcon } from "lucide-react";
 import CheckoutAddress from "../components/Checkout/CheckoutAddress";
 import CheckoutPayment from "../components/Checkout/CheckoutPayment";
