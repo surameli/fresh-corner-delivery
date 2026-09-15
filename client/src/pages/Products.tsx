@@ -4,7 +4,7 @@ import type { Product } from "../types";
 import { categoriesData, dummyProducts } from "../assets/assets";
 import { ChevronDown, Home, SlidersHorizontal, XIcon } from "lucide-react";
 import ProductCard from "../components/ProductCard";
-import Loading from "../components/loading";
+import Loading from "../components/Loading";
 import FilterPanel from "../components/FilterPanel";
 
 
