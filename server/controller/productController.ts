@@ -51,3 +51,4 @@ export const getProducts = async (req: Request, res: Response) =>{
    res.json({products: productWithDiscount})
 }
 
+// get / api/products/:id
