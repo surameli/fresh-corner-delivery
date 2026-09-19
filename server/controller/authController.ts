@@ -47,4 +47,32 @@ export const register = async( req:Request, res:Response) =>{
 
 }
 
+//login
+//post/api/auth/login
+export const login = async( req:Request, res:Response) =>{
+     const { email , password} = req.body;
+     if ( !email  || !password) {
+        return res.status(400).json({message: "please provide email and password"})
+        
+     }
+     const user = await prisma.user.findUnique({where:{email: email.toLowerCase()}, include:{addresses: true}})
+     if (!user) {
+       return res.status(400).json({message: " invalid email or password"})
+        
+     }
+     const isMatch = await bcrypt.compare(password, user.password)
+     if (!isMatch) {
+         return res.status(400).json({message: " invalid email or password"})
+        
+        
+     }
+     const token = generateToke(user.id)
+     const userData: any={...user};
+     delete userData.password;
+     userData.isAdmin = getAdminSatus(userData.email)
+
+     res.json({user: userData, token})
+
+}
+
 
