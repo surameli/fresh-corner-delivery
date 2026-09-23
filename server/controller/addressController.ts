@@ -23,7 +23,7 @@ export const getAddresses =  async(req: Request, res: Response)=>{
 
 //Add address
 //post api/addresses
-export const getAddress =  async(req: Request, res: Response)=>{
+export const addAddress =  async(req: Request, res: Response)=>{
     const{label, address, city, state, zip, isDefault, lat, lng} = req.body;
 
     //require coordinates
@@ -60,7 +60,7 @@ export const getAddress =  async(req: Request, res: Response)=>{
         where: {userId: req.user!.id},
         orderBy: {createdAt: "asc"}
     })
-    res.status(201).json({getAddress})
+    res.status(201).json({addresses})
 }
 
 // update address
