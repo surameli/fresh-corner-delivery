@@ -27,6 +27,7 @@ app.get('/', (req: Request, res: Response) => {
  app.use('/api/orders', orderRouter)
  app.use("/api/inngest", serve({ client: inngest, functions }));
  app.use("/api/addresses", addressRouter)
+ app.use("/api/admin", addressRouter)
 
  //error handling
 
