@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../../types"
-import { dummyProducts } from "../../assets/assets"
+
 import { Link } from "react-router-dom"
 import { ArrowRightIcon } from "lucide-react"
 import ProductCard from "../ProductCard"
+import api from "../../config/api"
+import toast from "react-hot-toast"
 
 
 
@@ -12,7 +14,12 @@ const PopularProducts = () => {
     const [products, setproducts] = useState<Product[]>([])
 
     useEffect(()=>{
-        setproducts(dummyProducts.slice(0,10))
+      api.get('/products?limit=8&sort=rating').then(({data})=>{
+          setproducts(data.products)
+      }).catch((error: any)=>{
+         toast.error(error.response.data.message || error?.message);
+      })
+        
     },[])
   return (
     <section className="pb-16">

@@ -39,7 +39,7 @@ export const getProducts = async (req: Request, res: Response) =>{
   const orderBy: any = {};
   if(sort === "price-low") orderBy.price = 'asc'
   else if(sort === "price-high") orderBy.price = 'desc'
-  else orderBy.CreatedAt = 'desc'
+  else orderBy.createdAt = 'desc'
 
 
   const products = await prisma.product.findMany({where, orderBy})
