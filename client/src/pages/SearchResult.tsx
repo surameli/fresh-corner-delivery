@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../types"
 import { Link, useSearchParams } from "react-router-dom"
-import { dummyProducts } from "../assets/assets"
+
 import { Home, Search } from "lucide-react"
 import Loading from "../components/Loading"
 import ProductCard from "../components/ProductCard"
+import api from "../config/api"
+
+import toast from "react-hot-toast"
 
 const SearchResult = () => {
 
@@ -16,8 +19,7 @@ const SearchResult = () => {
    useEffect(()=>{
     if (!query) return;
     setloading(true)
-    setproducts(dummyProducts.filter((p: any)=> p.name.toLowerCase().includes(query.toLowerCase())))
-    setloading(false)
+    api.get(`/products?search=${encodeURIComponent(query)}`).then((res)=>setproducts(res.data.products)).catch((error: any)=> {toast.error(error?.response?.data?.message || error?.message)}).finally(()=> setloading(false))
    },[query])
   return (
     <div className="min-h-screen bg-app-cream">
