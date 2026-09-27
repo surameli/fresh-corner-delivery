@@ -102,7 +102,7 @@ export const getUserOrders =  async (req: Request, res: Response)=>{
     const where: any ={
         userId: req.user!.id,
 
-        
+
         NOT: [{paymentMethod: "card", isPaid: false}]
     }
     if (status && status !== "all") {
@@ -144,7 +144,7 @@ export const updateorderstatus =  async (req: Request, res: Response)=>{
    }
 
    const history = (Array.isArray(order.statusHistory)? order.statusHistory : []) as any[]
-    history.push({status, note: note || `order${status.toLowercase()}`,timeStamp: new Date()})
+    history.push({status, note: note || `order${status.toLowerCase()}`,timeStamp: new Date()})
    
     const updateorder = await prisma.order.update({
         where:{id: req.params.id as string},
