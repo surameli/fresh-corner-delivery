@@ -9,7 +9,7 @@ import LiveMap from "../components/OrderTracking/LiveMap";
 import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
 import api from "../config/api";
 import Loading from "../components/Loading";
-
+``
 
 const OrderTracking = () => {
 
@@ -25,6 +25,34 @@ const OrderTracking = () => {
     api.get(`/orders/${id}`).then((res)=> setorder(res.data.order)).catch(()=> navigate("/orders")).finally(()=> setloading(false))
     
   },[id, navigate])
+
+  // live location  every 10 seconds
+
+  useEffect(()=>{
+    if(!order || ["Delivered", "cancelled" , "Placed"].includes(order.status)) return;
+
+    const fetchLocation = async()=>{
+      try {
+        const {data} = await api.get(`/orders/${id}/location`)
+        if(data.liveLocation?.lat && data.liveLocation?.lng && data.liveLocation.updateAt){
+          setLiveLocation({
+            lat: data.liveLocation.lat,
+            lng: data.liveLocation.lng
+          })
+        }
+        // alse update order ststus if it changed
+
+        if(data.status && data.status !== order.status){
+          setorder((prev)=> prev ? {...prev, status: data.status}: prev)
+        }
+      } catch  {
+        
+      }
+    }
+    fetchLocation()
+    const interval = setInterval(fetchLocation, 10000)
+    return ()=> clearInterval(interval)
+  },[id, order?.status])
 
   if(loading) return <Loading/>
   if(!order) null
