@@ -51,7 +51,7 @@ export const addAddress =  async(req: Request, res: Response)=>{
             zip,
             isDefault: makeDefault,
             lat: Number(lat),
-            lng: Number(lat)
+            lng: Number(lng)
 
         }
     })

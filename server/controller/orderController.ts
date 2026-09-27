@@ -23,7 +23,9 @@ export const createOrder =  async (req: Request, res: Response)=>{
   const productId = items.map((i : any)=> i.product);
    const products = await prisma.product.findMany({where:{id:{in: productId}}})
     const productMap: Record<string, (typeof products)[0]> = {}
-     products.forEach((p: any)=>(productMap[p.id = p]))
+      products.forEach((product: (typeof products)[number]) => {
+          productMap[product.id] = product
+      })
 
      // check if product is in stock
 
@@ -50,7 +52,7 @@ export const createOrder =  async (req: Request, res: Response)=>{
        }
 
      })
-     const subtotal = OrderItems.reduce((sum: number, item: any)=>sum + items.price * item.quantity, 0)
+    const subtotal = OrderItems.reduce((sum: number, item: any)=>sum + item.price * item.quantity, 0)
      const deliveryFee = subtotal > 20 ? 0 : 1.99;
      const  tax = Math.round(subtotal * 0.08 * 100)/100;
      const total = Math.round((subtotal + deliveryFee + tax)* 100)/100;
@@ -78,14 +80,14 @@ export const createOrder =  async (req: Request, res: Response)=>{
 
      for (const item of OrderItems){
         await prisma.product.update({
-            where: {id: items.product},
+            where: {id: item.product},
             data: {stock: {decrement: item.quantity}}
         })
      }
    // send stock update events for each product in the order
 
    for(const item of OrderItems){
-      await inngest.send({name: " inventory/stock.update", data: {productId: item.Product}})
+    await inngest.send({name: " inventory/stock.update", data: {productId: item.product}})
    }
    await inngest.send({name: " order/placed", data: {orderId: order.id}})
 
@@ -99,7 +101,7 @@ export const getUserOrders =  async (req: Request, res: Response)=>{
    const {status} = req.query;
     const where: any ={
         userId: req.user!.id,
-        NOT: [{paymentMethod: "card", ispaid: false}]
+        NOT: [{paymentMethod: "card", isPaid: false}]
     }
     if (status && status !== "all") {
         where.status = status;

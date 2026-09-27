@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import type { Order } from "../types";
-import { dummyDashboardOrdersData } from "../assets/assets";
-import Loading from "../components/loading";
+
+
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import OrderOTP from "../components/OrderTracking/OrderOTP";
 import LiveMap from "../components/OrderTracking/LiveMap";
 import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
+import api from "../config/api";
+import Loading from "../components/Loading";
 
 
 const OrderTracking = () => {
@@ -20,8 +22,8 @@ const OrderTracking = () => {
   const [livelocation , setLiveLocation] = useState<{lat: number; lng: number} | null> (null)
 
   useEffect (()=>{
-    setorder(dummyDashboardOrdersData.find((o) => o.id === id)as any)
-    setloading(false)
+    api.get(`/orders/${id}`).then((res)=> setorder(res.data.order)).catch(()=> navigate("/orders")).finally(()=> setloading(false))
+    
   },[id, navigate])
 
   if(loading) return <Loading/>
