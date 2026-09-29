@@ -36,7 +36,7 @@ app.get('/', (req: Request, res: Response) => {
 
  app.use((error:any, req:Request, res:Response, next: NextFunction)=>{
     console.log(error);
-    res.status(500).json({message: error.Message})
+     res.status(500).json({message: error.message || "Internal server error"})
     
  })
 
