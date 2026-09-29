@@ -30,7 +30,7 @@ export default function AdminOrders() {
     const fetchPartners = async () => {
       try {
         const {data} = await api.get("/admin/delivery-partners")
-        setPartners(data.partners.filter((p: DeliveryPartner)=> p.isActive))
+        setPartners(data.filter((p: DeliveryPartner)=> p.isActive))
       } catch  {
         
       }

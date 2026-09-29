@@ -48,7 +48,13 @@ export default function AdminDeliveryPartners() {
     };
 
     const toggleActive = async (id: string, isActive: boolean) => {
-        console.log(id, isActive);
+        try {
+            await api.put(`/admin/delivery-partners/${id}`, {isActive: !isActive});
+            toast.success(isActive ? " partner deactivated" : "partner activated")
+            fetchPartners();
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message || "Failed")
+        }
     };
 
     if (loading) return <Loading />;
