@@ -50,9 +50,9 @@ export const getMyDeliveries = async (req:Request, res: Response) =>{
 
   const where: any = {deliveryPartnerId: req.partner!.id};
 
-  if(status === "active"){
-    where.status = {in: ["Assigned" , "packed" , "out for Delivery"]}
-  }else if(status === "completed"){
+  if (status === "active") {
+    where.status = {in: ["Assigned", "Packed", "Out for Delivery"]};
+}else if(status === "completed"){
      where.status = {in: ["delivered" , "cancelled"]}
   }
    const orders = await prisma.order.findMany({

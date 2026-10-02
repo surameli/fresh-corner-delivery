@@ -17,7 +17,7 @@ const PopularProducts = () => {
       api.get('/products?sort=rating').then(({data})=>{
           setproducts(data.products)
       }).catch((error: any)=>{
-         toast.error(error.response.data.message || error?.message);
+         toast.error(error.response?.data?.message || error.message || "Failed to load products");
       })
         
     },[])

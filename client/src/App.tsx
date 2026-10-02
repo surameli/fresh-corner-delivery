@@ -9,6 +9,7 @@ import ProductPage from "./pages/ProductPage";
 import SearchResult from "./pages/SearchResult";
 import FlashDeals from "./pages/FlashDeals";
 import Checkout from "./pages/Checkout";
+import CheckoutReturn from "./pages/CheckoutReturn";
 import MyOrders from "./pages/MyOrders";
 import OrderTracking from "./pages/OrderTracking";
 import Addresses from "./pages/Addresses";
@@ -39,6 +40,7 @@ const App = () => {
          
          <Route element={<ProtectedRoute/>}>
           <Route path="checkout" element={<Checkout/>} />
+          <Route path="checkout/return/:orderId" element={<CheckoutReturn/>} />
           <Route path="orders" element={<MyOrders/>} />
           <Route path="orders/:id" element={<OrderTracking/>} />
           <Route path="addresses" element={<Addresses/>} />

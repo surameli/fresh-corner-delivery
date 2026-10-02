@@ -61,8 +61,7 @@ export default function DeliveryDashboard() {
         const sendLocation = (pos: GeolocationPosition)=>{
             const{latitude: lat, longitude: lng} =pos.coords;
             activeOrders.forEach((order)=>{
-                axios.put(`${API_URL}/delivery/my-deliveries/$
-                            {order.id}/location`, {lat, lng}, getAuthHeaders()).
+                axios.put(`${API_URL}/delivery/my-deliveries/${order.id}/location`, {lat, lng}, getAuthHeaders()).
             catch(()=>{})
           })
         }
@@ -116,11 +115,17 @@ export default function DeliveryDashboard() {
     const handleCancel = async () => {
         if (!cancelModal) return;
         setSubmitting(true);
-        setTimeout(() => {
-            setSubmitting(false);
-            setCancelModal(null);
+        try {
+            await axios.put(`${API_URL}/delivery/my-deliveries/${cancelModal}/cancel`, {reason: cancelReason}, getAuthHeaders());
+            toast.success("Delivery cancelled!")
+            setCancelModal(null)
             setCancelReason("");
-        }, 1000);
+            fetchOrders();
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message ||"Failed")
+        }finally{
+            setSubmitting(false)
+        }
     }
 
     return (
