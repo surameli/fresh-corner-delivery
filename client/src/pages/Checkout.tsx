@@ -19,7 +19,7 @@ import axios from "axios";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
 
   // Use native URLSearchParams as the source of truth for Chapa return params.
   // useSearchParams() has been observed returning null for orderId on a fresh

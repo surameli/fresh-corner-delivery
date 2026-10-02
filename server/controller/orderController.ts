@@ -233,7 +233,7 @@ export const createOrder = async (req: Request, res: Response) => {
       console.log("========== STARTING CHAPA v1 ==========");
       console.log("ORDER ID        :", order.id);
       console.log("TOTAL           :", total);
-      console.log("MERCHANT REF    :", merchantReference);
+      console.log("TX_REF          :", merchantReference);
       console.log("RETURN URL      :", returnUrl);
       console.log("CALLBACK URL    :", hasValidCallback ? callbackUrl : "(not set — skipped)");
 
