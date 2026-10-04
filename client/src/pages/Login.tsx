@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { heroSectionData } from "../assets/assets"
 import { Link} from "react-router-dom"
+import axios from "axios"
 import { BikeIcon, EyeIcon, EyeOffIcon, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react"
 import { UseAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
@@ -26,8 +27,11 @@ const Login = () => {
       }else{
         await register(name, email, password)
       }
-    } catch (error:any) {
-      toast.error(error.response?.data?.message || error?.message);
+    } catch (error: unknown) {
+      const message = axios.isAxiosError<{ message?: string }>(error)
+        ? error.response?.data?.message || error.message
+        : error instanceof Error ? error.message : "Authentication failed.";
+      toast.error(message);
     }finally{
       setLoading(false)
     }
@@ -99,6 +103,13 @@ const Login = () => {
                         </button>
                     </div>
                     </label>
+                    {isLoginstate && (
+                      <div className="text-right -mt-3">
+                        <Link to="/forgot-password" className="text-sm font-medium text-orange-500 hover:text-orange-600 transition-colors">
+                          Forgot Password?
+                        </Link>
+                      </div>
+                    )}
                     <button type="submit"  disabled={loading} className="flex-center w-full py-3 bg-green-950 text-white fonst-semibold rounded-xl hover:bg-green-900 transition-colors disabled:opacity-50">
                     {loading ? <Loader2Icon className="animate-spin"/> : isLoginstate ? "Sign In" : "Sign Up"}
                     </button>
