@@ -23,6 +23,9 @@ import AdminDeliveryPartners from "./pages/admin/AdminDeliveryPartners";
 import DeliveryLogin from "./pages/delivery/DeliveryLogin";
 import DeliveryLayout from "./pages/delivery/DeliveryLayout";
 import DeliveryDashboard from "./pages/delivery/DeliveryDashboard";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOtp from "./pages/VerifyOtp";
+import ResetPassword from "./pages/ResetPassword";
 const App = () => {
   return (
     <>
@@ -31,6 +34,9 @@ const App = () => {
       <Routes>
          {/* auth pages - No navbar/Footer */}
          <Route path="/login" element={<Login />} />
+         <Route path="/forgot-password" element={<ForgotPassword />} />
+         <Route path="/verify-otp" element={<VerifyOtp />} />
+         <Route path="/reset-password" element={<ResetPassword />} />
          <Route path="/" element={<AppLayout />}>
            <Route index element={<Home />} />
            <Route path="products" element={< Products />} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BikeIcon } from "lucide-react";
+import { BikeIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { heroSectionData } from "../../assets/assets";
 import api from "../../config/api";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ export default function DeliveryLogin() {
     const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.SubmitEvent) => {
@@ -64,7 +65,12 @@ export default function DeliveryLogin() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-app-green mb-1.5">Password</label>
-                            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border not-focus:border-app-border text-sm transition-colors" placeholder="••••••••" />
+                            <div className="relative">
+                                <input type={showPassword ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 pr-11 py-2.5 rounded-xl border not-focus:border-app-border text-sm transition-colors" placeholder="••••••••" />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-light hover:text-app-green">
+                                    {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" disabled={loading} className="w-full py-3 bg-app-green text-white font-semibold rounded-xl hover:bg-app-green-light transition-colors disabled:opacity-60">
                             {loading ? "Signing in..." : "Sign In"}

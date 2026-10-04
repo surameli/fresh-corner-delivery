@@ -8,16 +8,32 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  name      String
-  email     String    @unique
-  password  String
-  phone     String?   @default("")
-  avatar    String?   @default("")
-  addresses Address[]
-  orders    Order[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  phone         String?        @default("")
+  avatar        String?        @default("")
+  addresses     Address[]
+  orders        Order[]
+  passwordReset PasswordReset?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model PasswordReset {
+  id                     String    @id @default(uuid())
+  userId                 String    @unique
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  otpHash                String
+  expiresAt              DateTime
+  attempts               Int       @default(0)
+  requestCount           Int       @default(1)
+  requestWindowStartedAt DateTime  @default(now())
+  lastSentAt             DateTime  @default(now())
+  verifiedAt             DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
 }
 
 model Address {
@@ -72,9 +88,9 @@ model Order {
   deliveryOtp       String?          @default("")
   liveLocation      Json?
   isPaid            Boolean?         @default(false)
-  chapaReference        String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  chapaReference    String?          @unique
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
 }
 
 model DeliveryPartner {

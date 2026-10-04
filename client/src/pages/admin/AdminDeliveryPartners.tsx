@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PlusIcon, XIcon, TruckIcon, PhoneIcon, MailIcon } from "lucide-react";
+import { PlusIcon, XIcon, TruckIcon, PhoneIcon, MailIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import type { DeliveryPartner } from "../../types";
 import Loading from "../../components/Loading";
 import api from "../../config/api";
@@ -11,6 +11,7 @@ export default function AdminDeliveryPartners() {
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [form, setForm] = useState({ name: "", email: "", password: "", phone: "", vehicleType: "bike" });
 
     const fetchPartners = async () => {
@@ -127,7 +128,12 @@ export default function AdminDeliveryPartners() {
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-app-green mb-1.5">Password</label>
-                                        <input type="password" required minLength={6} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="w-full px-4 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none" />
+                                        <div className="relative">
+                                            <input type={showPassword ? "text" : "password"} required minLength={6} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="w-full px-4 pr-11 py-2.5 text-sm rounded-xl border border-app-border focus:border-app-green outline-none" />
+                                            <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} className="absolute right-3 top-1/2 -translate-y-1/2 text-app-text-light hover:text-app-green">
+                                                {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
