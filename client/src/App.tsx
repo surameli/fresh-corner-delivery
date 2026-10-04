@@ -65,6 +65,9 @@ const App = () => {
         </Route>
          {/* delivery partener pages */}
          <Route path="/delivery/login" element = {<DeliveryLogin/>}/>
+         <Route path="/delivery/forgot-password" element={<ForgotPassword isDelivery />} />
+         <Route path="/delivery/verify-otp" element={<VerifyOtp />} />
+         <Route path="/delivery/reset-password" element={<ResetPassword />} />
          <Route path="/delivery" element = {<DeliveryLayout/>}>
          <Route index element = {<DeliveryDashboard/>}/>
          </Route>

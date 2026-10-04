@@ -7,6 +7,7 @@ import api from "../config/api";
 type VerifyState = {
     email?: unknown;
     resendAvailableAt?: unknown;
+    isDelivery?: unknown;
 };
 
 export default function VerifyOtp() {
@@ -14,6 +15,8 @@ export default function VerifyOtp() {
     const navigate = useNavigate();
     const state = location.state as VerifyState | null;
     const email = typeof state?.email === "string" ? state.email : "";
+    const isDelivery = location.pathname.startsWith("/delivery/") ||
+        state?.isDelivery === true;
     const resendAvailableAt = typeof state?.resendAvailableAt === "number"
         ? state.resendAvailableAt
         : 0;
@@ -42,8 +45,13 @@ export default function VerifyOtp() {
         setLoading(true);
         setError("");
         try {
-            await api.post("/auth/verify-reset-otp", { email, otp });
-            navigate("/reset-password", { state: { email, otp } });
+            await api.post(
+                isDelivery ? "/delivery/verify-reset-otp" : "/auth/verify-reset-otp",
+                { email, otp },
+            );
+            navigate(isDelivery ? "/delivery/reset-password" : "/reset-password", {
+                state: { email, otp, isDelivery },
+            });
         } catch (requestError) {
             const responseMessage = axios.isAxiosError<{ message?: string }>(requestError)
                 ? requestError.response?.data?.message
@@ -59,7 +67,10 @@ export default function VerifyOtp() {
         setError("");
         setMessage("");
         try {
-            await api.post("/auth/forgot-password", { email });
+            await api.post(
+                isDelivery ? "/delivery/forgot-password" : "/auth/forgot-password",
+                { email },
+            );
             const nextAvailableAt = Date.now() + 60_000;
             setCooldownUntil(nextAvailableAt);
             setOtp("");
@@ -127,7 +138,7 @@ export default function VerifyOtp() {
                                 : "Resend OTP"}
                     </button>
                     <p className="mt-4">
-                        <Link to="/forgot-password" className="text-app-text-light hover:text-app-green">
+                        <Link to={isDelivery ? "/delivery/forgot-password" : "/forgot-password"} className="text-app-text-light hover:text-app-green">
                             Change email address
                         </Link>
                     </p>
