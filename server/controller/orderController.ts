@@ -203,7 +203,7 @@ export const createOrder = async (req: Request, res: Response) => {
       // separator at all. The route /checkout/return/:orderId is handled
       // by the CheckoutReturn page component.
       const clientUrl = (
-        process.env.CLIENT_URL || "http://localhost:5173"
+        process.env.CLIENT_URL || "https://fresh-corner-delivery.vercel.app"
       ).replace(/\/$/, "");
       const returnUrl = `${clientUrl}/checkout/return/${encodeURIComponent(order.id)}`;
 
