@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { heroSectionData } from "../assets/assets"
 import { Link} from "react-router-dom"
-import { BikeIcon, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react"
+import { BikeIcon, EyeIcon, EyeOffIcon, Loader2Icon, LockIcon, MailIcon, UserIcon } from "lucide-react"
 import { UseAuth } from "../context/AuthContext"
 import toast from "react-hot-toast"
 
@@ -12,6 +12,7 @@ const Login = () => {
    const[name, setName] = useState("")
    const [email, setEmail] = useState("")
    const[password, setPassword] = useState("")
+   const [showPassword, setShowPassword] = useState(false)
    const [loading, setLoading] = useState(false)
 
    const { login , register} =UseAuth()
@@ -90,8 +91,12 @@ const Login = () => {
                     Password
                     <div className="relative">
                         <LockIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-app-text-light" />
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="......." 
-                        className="w-full pl-11 pr-4 py-3 text-sm bg-white rounded-xl border not-focus:border-app-border transition-all"  />
+                        <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="......." 
+                        className="w-full pl-11 pr-11 py-3 text-sm bg-white rounded-xl border not-focus:border-app-border transition-all"  />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-app-text-light hover:text-app-green">
+                          {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                        </button>
                     </div>
                     </label>
                     <button type="submit"  disabled={loading} className="flex-center w-full py-3 bg-green-950 text-white fonst-semibold rounded-xl hover:bg-green-900 transition-colors disabled:opacity-50">
