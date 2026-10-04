@@ -145,7 +145,7 @@ const sendMonthlyoffers = inngest.createFunction({
                     </table>
 
                     <div style="text-align: center; margin-top: 24px;">
-                        <a href="${process.env.CLIENT_URL || "http://localhost:5173"}/products"
+                        <a href="${process.env.CLIENT_URL || "https://fresh-corner-delivery.vercel.app"}/products"
                            style="display: inline-block; background: #16a34a; color: #fff; padding: 12px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 14px;">
                            Shop All Deals →
                         </a>
