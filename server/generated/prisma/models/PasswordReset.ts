@@ -39,6 +39,7 @@ export type PasswordResetSumAggregateOutputType = {
 export type PasswordResetMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  deliveryPartnerId: string | null
   otpHash: string | null
   expiresAt: Date | null
   attempts: number | null
@@ -53,6 +54,7 @@ export type PasswordResetMinAggregateOutputType = {
 export type PasswordResetMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  deliveryPartnerId: string | null
   otpHash: string | null
   expiresAt: Date | null
   attempts: number | null
@@ -67,6 +69,7 @@ export type PasswordResetMaxAggregateOutputType = {
 export type PasswordResetCountAggregateOutputType = {
   id: number
   userId: number
+  deliveryPartnerId: number
   otpHash: number
   expiresAt: number
   attempts: number
@@ -93,6 +96,7 @@ export type PasswordResetSumAggregateInputType = {
 export type PasswordResetMinAggregateInputType = {
   id?: true
   userId?: true
+  deliveryPartnerId?: true
   otpHash?: true
   expiresAt?: true
   attempts?: true
@@ -107,6 +111,7 @@ export type PasswordResetMinAggregateInputType = {
 export type PasswordResetMaxAggregateInputType = {
   id?: true
   userId?: true
+  deliveryPartnerId?: true
   otpHash?: true
   expiresAt?: true
   attempts?: true
@@ -121,6 +126,7 @@ export type PasswordResetMaxAggregateInputType = {
 export type PasswordResetCountAggregateInputType = {
   id?: true
   userId?: true
+  deliveryPartnerId?: true
   otpHash?: true
   expiresAt?: true
   attempts?: true
@@ -221,7 +227,8 @@ export type PasswordResetGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type PasswordResetGroupByOutputType = {
   id: string
-  userId: string
+  userId: string | null
+  deliveryPartnerId: string | null
   otpHash: string
   expiresAt: Date
   attempts: number
@@ -258,7 +265,8 @@ export type PasswordResetWhereInput = {
   OR?: Prisma.PasswordResetWhereInput[]
   NOT?: Prisma.PasswordResetWhereInput | Prisma.PasswordResetWhereInput[]
   id?: Prisma.StringFilter<"PasswordReset"> | string
-  userId?: Prisma.StringFilter<"PasswordReset"> | string
+  userId?: Prisma.StringNullableFilter<"PasswordReset"> | string | null
+  deliveryPartnerId?: Prisma.StringNullableFilter<"PasswordReset"> | string | null
   otpHash?: Prisma.StringFilter<"PasswordReset"> | string
   expiresAt?: Prisma.DateTimeFilter<"PasswordReset"> | Date | string
   attempts?: Prisma.IntFilter<"PasswordReset"> | number
@@ -268,12 +276,14 @@ export type PasswordResetWhereInput = {
   verifiedAt?: Prisma.DateTimeNullableFilter<"PasswordReset"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PasswordReset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PasswordReset"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  deliveryPartner?: Prisma.XOR<Prisma.DeliveryPartnerNullableScalarRelationFilter, Prisma.DeliveryPartnerWhereInput> | null
 }
 
 export type PasswordResetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryPartnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   otpHash?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
@@ -284,11 +294,13 @@ export type PasswordResetOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  deliveryPartner?: Prisma.DeliveryPartnerOrderByWithRelationInput
 }
 
 export type PasswordResetWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  deliveryPartnerId?: string
   AND?: Prisma.PasswordResetWhereInput | Prisma.PasswordResetWhereInput[]
   OR?: Prisma.PasswordResetWhereInput[]
   NOT?: Prisma.PasswordResetWhereInput | Prisma.PasswordResetWhereInput[]
@@ -301,12 +313,14 @@ export type PasswordResetWhereUniqueInput = Prisma.AtLeast<{
   verifiedAt?: Prisma.DateTimeNullableFilter<"PasswordReset"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PasswordReset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PasswordReset"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId">
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  deliveryPartner?: Prisma.XOR<Prisma.DeliveryPartnerNullableScalarRelationFilter, Prisma.DeliveryPartnerWhereInput> | null
+}, "id" | "userId" | "deliveryPartnerId">
 
 export type PasswordResetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryPartnerId?: Prisma.SortOrderInput | Prisma.SortOrder
   otpHash?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
@@ -328,7 +342,8 @@ export type PasswordResetScalarWhereWithAggregatesInput = {
   OR?: Prisma.PasswordResetScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PasswordResetScalarWhereWithAggregatesInput | Prisma.PasswordResetScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PasswordReset"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"PasswordReset"> | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"PasswordReset"> | string | null
+  deliveryPartnerId?: Prisma.StringNullableWithAggregatesFilter<"PasswordReset"> | string | null
   otpHash?: Prisma.StringWithAggregatesFilter<"PasswordReset"> | string
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"PasswordReset"> | Date | string
   attempts?: Prisma.IntWithAggregatesFilter<"PasswordReset"> | number
@@ -351,12 +366,14 @@ export type PasswordResetCreateInput = {
   verifiedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutPasswordResetInput
+  user?: Prisma.UserCreateNestedOneWithoutPasswordResetInput
+  deliveryPartner?: Prisma.DeliveryPartnerCreateNestedOneWithoutPasswordResetInput
 }
 
 export type PasswordResetUncheckedCreateInput = {
   id?: string
-  userId: string
+  userId?: string | null
+  deliveryPartnerId?: string | null
   otpHash: string
   expiresAt: Date | string
   attempts?: number
@@ -379,12 +396,14 @@ export type PasswordResetUpdateInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutPasswordResetNestedInput
+  user?: Prisma.UserUpdateOneWithoutPasswordResetNestedInput
+  deliveryPartner?: Prisma.DeliveryPartnerUpdateOneWithoutPasswordResetNestedInput
 }
 
 export type PasswordResetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPartnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpHash?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
@@ -398,7 +417,8 @@ export type PasswordResetUncheckedUpdateInput = {
 
 export type PasswordResetCreateManyInput = {
   id?: string
-  userId: string
+  userId?: string | null
+  deliveryPartnerId?: string | null
   otpHash: string
   expiresAt: Date | string
   attempts?: number
@@ -425,7 +445,8 @@ export type PasswordResetUpdateManyMutationInput = {
 
 export type PasswordResetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPartnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpHash?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
@@ -445,6 +466,7 @@ export type PasswordResetNullableScalarRelationFilter = {
 export type PasswordResetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deliveryPartnerId?: Prisma.SortOrder
   otpHash?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
@@ -464,6 +486,7 @@ export type PasswordResetAvgOrderByAggregateInput = {
 export type PasswordResetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deliveryPartnerId?: Prisma.SortOrder
   otpHash?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
@@ -478,6 +501,7 @@ export type PasswordResetMaxOrderByAggregateInput = {
 export type PasswordResetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  deliveryPartnerId?: Prisma.SortOrder
   otpHash?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
@@ -538,6 +562,38 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type PasswordResetCreateNestedOneWithoutDeliveryPartnerInput = {
+  create?: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+  connectOrCreate?: Prisma.PasswordResetCreateOrConnectWithoutDeliveryPartnerInput
+  connect?: Prisma.PasswordResetWhereUniqueInput
+}
+
+export type PasswordResetUncheckedCreateNestedOneWithoutDeliveryPartnerInput = {
+  create?: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+  connectOrCreate?: Prisma.PasswordResetCreateOrConnectWithoutDeliveryPartnerInput
+  connect?: Prisma.PasswordResetWhereUniqueInput
+}
+
+export type PasswordResetUpdateOneWithoutDeliveryPartnerNestedInput = {
+  create?: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+  connectOrCreate?: Prisma.PasswordResetCreateOrConnectWithoutDeliveryPartnerInput
+  upsert?: Prisma.PasswordResetUpsertWithoutDeliveryPartnerInput
+  disconnect?: Prisma.PasswordResetWhereInput | boolean
+  delete?: Prisma.PasswordResetWhereInput | boolean
+  connect?: Prisma.PasswordResetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PasswordResetUpdateToOneWithWhereWithoutDeliveryPartnerInput, Prisma.PasswordResetUpdateWithoutDeliveryPartnerInput>, Prisma.PasswordResetUncheckedUpdateWithoutDeliveryPartnerInput>
+}
+
+export type PasswordResetUncheckedUpdateOneWithoutDeliveryPartnerNestedInput = {
+  create?: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+  connectOrCreate?: Prisma.PasswordResetCreateOrConnectWithoutDeliveryPartnerInput
+  upsert?: Prisma.PasswordResetUpsertWithoutDeliveryPartnerInput
+  disconnect?: Prisma.PasswordResetWhereInput | boolean
+  delete?: Prisma.PasswordResetWhereInput | boolean
+  connect?: Prisma.PasswordResetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PasswordResetUpdateToOneWithWhereWithoutDeliveryPartnerInput, Prisma.PasswordResetUpdateWithoutDeliveryPartnerInput>, Prisma.PasswordResetUncheckedUpdateWithoutDeliveryPartnerInput>
+}
+
 export type PasswordResetCreateWithoutUserInput = {
   id?: string
   otpHash: string
@@ -549,10 +605,12 @@ export type PasswordResetCreateWithoutUserInput = {
   verifiedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  deliveryPartner?: Prisma.DeliveryPartnerCreateNestedOneWithoutPasswordResetInput
 }
 
 export type PasswordResetUncheckedCreateWithoutUserInput = {
   id?: string
+  deliveryPartnerId?: string | null
   otpHash: string
   expiresAt: Date | string
   attempts?: number
@@ -591,10 +649,84 @@ export type PasswordResetUpdateWithoutUserInput = {
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveryPartner?: Prisma.DeliveryPartnerUpdateOneWithoutPasswordResetNestedInput
 }
 
 export type PasswordResetUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryPartnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  otpHash?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  requestCount?: Prisma.IntFieldUpdateOperationsInput | number
+  requestWindowStartedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastSentAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PasswordResetCreateWithoutDeliveryPartnerInput = {
+  id?: string
+  otpHash: string
+  expiresAt: Date | string
+  attempts?: number
+  requestCount?: number
+  requestWindowStartedAt?: Date | string
+  lastSentAt?: Date | string
+  verifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutPasswordResetInput
+}
+
+export type PasswordResetUncheckedCreateWithoutDeliveryPartnerInput = {
+  id?: string
+  userId?: string | null
+  otpHash: string
+  expiresAt: Date | string
+  attempts?: number
+  requestCount?: number
+  requestWindowStartedAt?: Date | string
+  lastSentAt?: Date | string
+  verifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PasswordResetCreateOrConnectWithoutDeliveryPartnerInput = {
+  where: Prisma.PasswordResetWhereUniqueInput
+  create: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+}
+
+export type PasswordResetUpsertWithoutDeliveryPartnerInput = {
+  update: Prisma.XOR<Prisma.PasswordResetUpdateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedUpdateWithoutDeliveryPartnerInput>
+  create: Prisma.XOR<Prisma.PasswordResetCreateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedCreateWithoutDeliveryPartnerInput>
+  where?: Prisma.PasswordResetWhereInput
+}
+
+export type PasswordResetUpdateToOneWithWhereWithoutDeliveryPartnerInput = {
+  where?: Prisma.PasswordResetWhereInput
+  data: Prisma.XOR<Prisma.PasswordResetUpdateWithoutDeliveryPartnerInput, Prisma.PasswordResetUncheckedUpdateWithoutDeliveryPartnerInput>
+}
+
+export type PasswordResetUpdateWithoutDeliveryPartnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  otpHash?: Prisma.StringFieldUpdateOperationsInput | string
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  requestCount?: Prisma.IntFieldUpdateOperationsInput | number
+  requestWindowStartedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastSentAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutPasswordResetNestedInput
+}
+
+export type PasswordResetUncheckedUpdateWithoutDeliveryPartnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpHash?: Prisma.StringFieldUpdateOperationsInput | string
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
@@ -611,6 +743,7 @@ export type PasswordResetUncheckedUpdateWithoutUserInput = {
 export type PasswordResetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  deliveryPartnerId?: boolean
   otpHash?: boolean
   expiresAt?: boolean
   attempts?: boolean
@@ -620,12 +753,14 @@ export type PasswordResetSelect<ExtArgs extends runtime.Types.Extensions.Interna
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }, ExtArgs["result"]["passwordReset"]>
 
 export type PasswordResetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  deliveryPartnerId?: boolean
   otpHash?: boolean
   expiresAt?: boolean
   attempts?: boolean
@@ -635,12 +770,14 @@ export type PasswordResetSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }, ExtArgs["result"]["passwordReset"]>
 
 export type PasswordResetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  deliveryPartnerId?: boolean
   otpHash?: boolean
   expiresAt?: boolean
   attempts?: boolean
@@ -650,12 +787,14 @@ export type PasswordResetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }, ExtArgs["result"]["passwordReset"]>
 
 export type PasswordResetSelectScalar = {
   id?: boolean
   userId?: boolean
+  deliveryPartnerId?: boolean
   otpHash?: boolean
   expiresAt?: boolean
   attempts?: boolean
@@ -667,25 +806,30 @@ export type PasswordResetSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PasswordResetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "otpHash" | "expiresAt" | "attempts" | "requestCount" | "requestWindowStartedAt" | "lastSentAt" | "verifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passwordReset"]>
+export type PasswordResetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "deliveryPartnerId" | "otpHash" | "expiresAt" | "attempts" | "requestCount" | "requestWindowStartedAt" | "lastSentAt" | "verifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passwordReset"]>
 export type PasswordResetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }
 export type PasswordResetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }
 export type PasswordResetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.PasswordReset$userArgs<ExtArgs>
+  deliveryPartner?: boolean | Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>
 }
 
 export type $PasswordResetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PasswordReset"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
+    deliveryPartner: Prisma.$DeliveryPartnerPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    userId: string
+    userId: string | null
+    deliveryPartnerId: string | null
     otpHash: string
     expiresAt: Date
     attempts: number
@@ -1089,7 +1233,8 @@ readonly fields: PasswordResetFieldRefs;
  */
 export interface Prisma__PasswordResetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.PasswordReset$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PasswordReset$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  deliveryPartner<T extends Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PasswordReset$deliveryPartnerArgs<ExtArgs>>): Prisma.Prisma__DeliveryPartnerClient<runtime.Types.Result.GetResult<Prisma.$DeliveryPartnerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1121,6 +1266,7 @@ export interface Prisma__PasswordResetClient<T, Null = never, ExtArgs extends ru
 export interface PasswordResetFieldRefs {
   readonly id: Prisma.FieldRef<"PasswordReset", 'String'>
   readonly userId: Prisma.FieldRef<"PasswordReset", 'String'>
+  readonly deliveryPartnerId: Prisma.FieldRef<"PasswordReset", 'String'>
   readonly otpHash: Prisma.FieldRef<"PasswordReset", 'String'>
   readonly expiresAt: Prisma.FieldRef<"PasswordReset", 'DateTime'>
   readonly attempts: Prisma.FieldRef<"PasswordReset", 'Int'>
@@ -1528,6 +1674,44 @@ export type PasswordResetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many PasswordResets to delete.
    */
   limit?: number
+}
+
+/**
+ * PasswordReset.user
+ */
+export type PasswordReset$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * PasswordReset.deliveryPartner
+ */
+export type PasswordReset$deliveryPartnerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DeliveryPartner
+   */
+  select?: Prisma.DeliveryPartnerSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DeliveryPartner
+   */
+  omit?: Prisma.DeliveryPartnerOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryPartnerInclude<ExtArgs> | null
+  where?: Prisma.DeliveryPartnerWhereInput
 }
 
 /**

@@ -92,6 +92,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const PasswordResetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  deliveryPartnerId: 'deliveryPartnerId',
   otpHash: 'otpHash',
   expiresAt: 'expiresAt',
   attempts: 'attempts',

@@ -8,6 +8,7 @@ import api from "../config/api";
 type ResetState = {
     email?: unknown;
     otp?: unknown;
+    isDelivery?: unknown;
 };
 
 export default function ResetPassword() {
@@ -16,6 +17,8 @@ export default function ResetPassword() {
     const state = location.state as ResetState | null;
     const email = typeof state?.email === "string" ? state.email : "";
     const otp = typeof state?.otp === "string" ? state.otp : "";
+    const isDelivery = location.pathname.startsWith("/delivery/") ||
+        state?.isDelivery === true;
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -39,11 +42,14 @@ export default function ResetPassword() {
 
         setLoading(true);
         try {
-            await api.post("/auth/reset-password", { email, otp, newPassword: password });
+            await api.post(
+                isDelivery ? "/delivery/reset-password" : "/auth/reset-password",
+                { email, otp, newPassword: password },
+            );
             toast.success("Password reset successfully.");
             navigate("/login", {
                 replace: true,
-                state: { passwordReset: true },
+                state: { passwordReset: true, isDelivery },
             });
         } catch (requestError) {
             const responseMessage = axios.isAxiosError<{ message?: string }>(requestError)

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import api from "../config/api";
 
-export default function ForgotPassword() {
+export default function ForgotPassword({ isDelivery = false }: { isDelivery?: boolean }) {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
@@ -15,9 +15,13 @@ export default function ForgotPassword() {
         setLoading(true);
         setError("");
         try {
-            await api.post("/auth/forgot-password", { email });
-            navigate("/verify-otp", {
-                state: { email: email.trim().toLowerCase(), resendAvailableAt: Date.now() + 60_000 },
+            await api.post(isDelivery ? "/delivery/forgot-password" : "/auth/forgot-password", { email });
+            navigate(isDelivery ? "/delivery/verify-otp" : "/verify-otp", {
+                state: {
+                    email: email.trim().toLowerCase(),
+                    resendAvailableAt: Date.now() + 60_000,
+                    isDelivery,
+                },
             });
         } catch (requestError) {
             const message = axios.isAxiosError<{ message?: string }>(requestError)
@@ -69,7 +73,7 @@ export default function ForgotPassword() {
                     </button>
                 </form>
                 <p className="text-center text-sm mt-5">
-                    <Link to="/login" className="font-medium text-orange-500 hover:text-orange-600">
+                    <Link to={isDelivery ? "/delivery/login" : "/login"} className="font-medium text-orange-500 hover:text-orange-600">
                         Back to Sign In
                     </Link>
                 </p>

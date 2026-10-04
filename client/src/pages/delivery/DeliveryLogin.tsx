@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { BikeIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { heroSectionData } from "../../assets/assets";
+import axios from "axios";
 import api from "../../config/api";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function DeliveryLogin() {
     const navigate = useNavigate()
@@ -22,8 +23,11 @@ export default function DeliveryLogin() {
              localStorage.setItem("delivery_partner", JSON.stringify(data.partner))
              toast.success("login Successful")
              navigate('/delivery')
-        } catch (error:any) {
-            toast.error(error?.response?.data?.message || error?.message)
+        } catch (error: unknown) {
+            const message = axios.isAxiosError<{ message?: string }>(error)
+                ? error.response?.data?.message || error.message
+                : error instanceof Error ? error.message : "Unable to sign in.";
+            toast.error(message);
         }finally{
             setLoading(false)
         }
@@ -33,7 +37,7 @@ export default function DeliveryLogin() {
         if (localStorage.getItem("delivery_token")) {
             navigate('/delivery')
         }
-    },[])
+    },[navigate])
 
     return (
         <div className="min-h-screen flex">
@@ -71,6 +75,11 @@ export default function DeliveryLogin() {
                                     {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
                                 </button>
                             </div>
+                        </div>
+                        <div className="text-right -mt-3">
+                            <Link to="/delivery/forgot-password" className="text-sm font-medium text-orange-500 hover:text-orange-600 transition-colors">
+                                Forgot Password?
+                            </Link>
                         </div>
                         <button type="submit" disabled={loading} className="w-full py-3 bg-app-green text-white font-semibold rounded-xl hover:bg-app-green-light transition-colors disabled:opacity-60">
                             {loading ? "Signing in..." : "Sign In"}

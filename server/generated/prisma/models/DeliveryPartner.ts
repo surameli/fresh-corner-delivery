@@ -223,6 +223,7 @@ export type DeliveryPartnerWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"DeliveryPartner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DeliveryPartner"> | Date | string
   orders?: Prisma.OrderListRelationFilter
+  passwordReset?: Prisma.XOR<Prisma.PasswordResetNullableScalarRelationFilter, Prisma.PasswordResetWhereInput> | null
 }
 
 export type DeliveryPartnerOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type DeliveryPartnerOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   orders?: Prisma.OrderOrderByRelationAggregateInput
+  passwordReset?: Prisma.PasswordResetOrderByWithRelationInput
 }
 
 export type DeliveryPartnerWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +256,7 @@ export type DeliveryPartnerWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"DeliveryPartner"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DeliveryPartner"> | Date | string
   orders?: Prisma.OrderListRelationFilter
+  passwordReset?: Prisma.XOR<Prisma.PasswordResetNullableScalarRelationFilter, Prisma.PasswordResetWhereInput> | null
 }, "id" | "email">
 
 export type DeliveryPartnerOrderByWithAggregationInput = {
@@ -300,6 +303,7 @@ export type DeliveryPartnerCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutDeliveryPartnerInput
+  passwordReset?: Prisma.PasswordResetCreateNestedOneWithoutDeliveryPartnerInput
 }
 
 export type DeliveryPartnerUncheckedCreateInput = {
@@ -314,6 +318,7 @@ export type DeliveryPartnerUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeliveryPartnerInput
+  passwordReset?: Prisma.PasswordResetUncheckedCreateNestedOneWithoutDeliveryPartnerInput
 }
 
 export type DeliveryPartnerUpdateInput = {
@@ -328,6 +333,7 @@ export type DeliveryPartnerUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutDeliveryPartnerNestedInput
+  passwordReset?: Prisma.PasswordResetUpdateOneWithoutDeliveryPartnerNestedInput
 }
 
 export type DeliveryPartnerUncheckedUpdateInput = {
@@ -342,6 +348,7 @@ export type DeliveryPartnerUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutDeliveryPartnerNestedInput
+  passwordReset?: Prisma.PasswordResetUncheckedUpdateOneWithoutDeliveryPartnerNestedInput
 }
 
 export type DeliveryPartnerCreateManyInput = {
@@ -427,6 +434,22 @@ export type DeliveryPartnerMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type DeliveryPartnerCreateNestedOneWithoutPasswordResetInput = {
+  create?: Prisma.XOR<Prisma.DeliveryPartnerCreateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedCreateWithoutPasswordResetInput>
+  connectOrCreate?: Prisma.DeliveryPartnerCreateOrConnectWithoutPasswordResetInput
+  connect?: Prisma.DeliveryPartnerWhereUniqueInput
+}
+
+export type DeliveryPartnerUpdateOneWithoutPasswordResetNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryPartnerCreateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedCreateWithoutPasswordResetInput>
+  connectOrCreate?: Prisma.DeliveryPartnerCreateOrConnectWithoutPasswordResetInput
+  upsert?: Prisma.DeliveryPartnerUpsertWithoutPasswordResetInput
+  disconnect?: Prisma.DeliveryPartnerWhereInput | boolean
+  delete?: Prisma.DeliveryPartnerWhereInput | boolean
+  connect?: Prisma.DeliveryPartnerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryPartnerUpdateToOneWithWhereWithoutPasswordResetInput, Prisma.DeliveryPartnerUpdateWithoutPasswordResetInput>, Prisma.DeliveryPartnerUncheckedUpdateWithoutPasswordResetInput>
+}
+
 export type DeliveryPartnerCreateNestedOneWithoutOrdersInput = {
   create?: Prisma.XOR<Prisma.DeliveryPartnerCreateWithoutOrdersInput, Prisma.DeliveryPartnerUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.DeliveryPartnerCreateOrConnectWithoutOrdersInput
@@ -443,6 +466,78 @@ export type DeliveryPartnerUpdateOneWithoutOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryPartnerUpdateToOneWithWhereWithoutOrdersInput, Prisma.DeliveryPartnerUpdateWithoutOrdersInput>, Prisma.DeliveryPartnerUncheckedUpdateWithoutOrdersInput>
 }
 
+export type DeliveryPartnerCreateWithoutPasswordResetInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phone: string
+  avatar?: string | null
+  vehicleType?: string | null
+  isActive?: boolean | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orders?: Prisma.OrderCreateNestedManyWithoutDeliveryPartnerInput
+}
+
+export type DeliveryPartnerUncheckedCreateWithoutPasswordResetInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phone: string
+  avatar?: string | null
+  vehicleType?: string | null
+  isActive?: boolean | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeliveryPartnerInput
+}
+
+export type DeliveryPartnerCreateOrConnectWithoutPasswordResetInput = {
+  where: Prisma.DeliveryPartnerWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeliveryPartnerCreateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedCreateWithoutPasswordResetInput>
+}
+
+export type DeliveryPartnerUpsertWithoutPasswordResetInput = {
+  update: Prisma.XOR<Prisma.DeliveryPartnerUpdateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedUpdateWithoutPasswordResetInput>
+  create: Prisma.XOR<Prisma.DeliveryPartnerCreateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedCreateWithoutPasswordResetInput>
+  where?: Prisma.DeliveryPartnerWhereInput
+}
+
+export type DeliveryPartnerUpdateToOneWithWhereWithoutPasswordResetInput = {
+  where?: Prisma.DeliveryPartnerWhereInput
+  data: Prisma.XOR<Prisma.DeliveryPartnerUpdateWithoutPasswordResetInput, Prisma.DeliveryPartnerUncheckedUpdateWithoutPasswordResetInput>
+}
+
+export type DeliveryPartnerUpdateWithoutPasswordResetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUpdateManyWithoutDeliveryPartnerNestedInput
+}
+
+export type DeliveryPartnerUncheckedUpdateWithoutPasswordResetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutDeliveryPartnerNestedInput
+}
+
 export type DeliveryPartnerCreateWithoutOrdersInput = {
   id?: string
   name: string
@@ -454,6 +549,7 @@ export type DeliveryPartnerCreateWithoutOrdersInput = {
   isActive?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  passwordReset?: Prisma.PasswordResetCreateNestedOneWithoutDeliveryPartnerInput
 }
 
 export type DeliveryPartnerUncheckedCreateWithoutOrdersInput = {
@@ -467,6 +563,7 @@ export type DeliveryPartnerUncheckedCreateWithoutOrdersInput = {
   isActive?: boolean | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  passwordReset?: Prisma.PasswordResetUncheckedCreateNestedOneWithoutDeliveryPartnerInput
 }
 
 export type DeliveryPartnerCreateOrConnectWithoutOrdersInput = {
@@ -496,6 +593,7 @@ export type DeliveryPartnerUpdateWithoutOrdersInput = {
   isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passwordReset?: Prisma.PasswordResetUpdateOneWithoutDeliveryPartnerNestedInput
 }
 
 export type DeliveryPartnerUncheckedUpdateWithoutOrdersInput = {
@@ -509,6 +607,7 @@ export type DeliveryPartnerUncheckedUpdateWithoutOrdersInput = {
   isActive?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  passwordReset?: Prisma.PasswordResetUncheckedUpdateOneWithoutDeliveryPartnerNestedInput
 }
 
 
@@ -554,6 +653,7 @@ export type DeliveryPartnerSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdAt?: boolean
   updatedAt?: boolean
   orders?: boolean | Prisma.DeliveryPartner$ordersArgs<ExtArgs>
+  passwordReset?: boolean | Prisma.DeliveryPartner$passwordResetArgs<ExtArgs>
   _count?: boolean | Prisma.DeliveryPartnerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["deliveryPartner"]>
 
@@ -599,6 +699,7 @@ export type DeliveryPartnerSelectScalar = {
 export type DeliveryPartnerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "phone" | "avatar" | "vehicleType" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["deliveryPartner"]>
 export type DeliveryPartnerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | Prisma.DeliveryPartner$ordersArgs<ExtArgs>
+  passwordReset?: boolean | Prisma.DeliveryPartner$passwordResetArgs<ExtArgs>
   _count?: boolean | Prisma.DeliveryPartnerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DeliveryPartnerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -608,6 +709,7 @@ export type $DeliveryPartnerPayload<ExtArgs extends runtime.Types.Extensions.Int
   name: "DeliveryPartner"
   objects: {
     orders: Prisma.$OrderPayload<ExtArgs>[]
+    passwordReset: Prisma.$PasswordResetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1015,6 +1117,7 @@ readonly fields: DeliveryPartnerFieldRefs;
 export interface Prisma__DeliveryPartnerClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   orders<T extends Prisma.DeliveryPartner$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DeliveryPartner$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordReset<T extends Prisma.DeliveryPartner$passwordResetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DeliveryPartner$passwordResetArgs<ExtArgs>>): Prisma.Prisma__PasswordResetClient<runtime.Types.Result.GetResult<Prisma.$PasswordResetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1468,6 +1571,25 @@ export type DeliveryPartner$ordersArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * DeliveryPartner.passwordReset
+ */
+export type DeliveryPartner$passwordResetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordReset
+   */
+  select?: Prisma.PasswordResetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordReset
+   */
+  omit?: Prisma.PasswordResetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetWhereInput
 }
 
 /**

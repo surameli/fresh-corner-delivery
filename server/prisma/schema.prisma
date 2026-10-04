@@ -23,8 +23,10 @@ model User {
 
 model PasswordReset {
   id                     String    @id @default(uuid())
-  userId                 String    @unique
-  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                 String?   @unique
+  user                   User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deliveryPartnerId      String?   @unique
+  deliveryPartner        DeliveryPartner? @relation(fields: [deliveryPartnerId], references: [id], onDelete: Cascade)
   otpHash                String
   expiresAt              DateTime
   attempts               Int       @default(0)
@@ -103,6 +105,7 @@ model DeliveryPartner {
   vehicleType String?  @default("bike")
   isActive    Boolean? @default(true)
   orders      Order[]
+  passwordReset PasswordReset?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
