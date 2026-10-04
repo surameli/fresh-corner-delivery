@@ -1,5 +1,8 @@
 import { CheckIcon, MapPinIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import type { Address } from "../types"
+import api from "../config/api";
+import { UseAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 interface AddressCardProps{
     addr : Address;
@@ -8,14 +11,24 @@ interface AddressCardProps{
 }
 
 const AddressCard = ({addr, onEditHandler, setAddresses } : AddressCardProps) => {
-
+    
+    const {updateUser} = UseAuth()
 
     const handleDelete = async (id: string) =>{
-        console.log(id);
+       try {
+        const confirm = window.confirm("Are you sure you went to delete this address?")
+        if(!confirm )return;
+        const {data} =await api.delete(`/addresses/${id}`);
+        setAddresses(data.addresses)
+        updateUser({addresses: data.addresses})
+        toast.success("Address removed")
+       } catch (error: any) {
+         toast.error(error?.response?.data?.message || error?.message)
+       }
         
     }
   return (
-    <div key={addr._id} className="max-w-3xl bg-white rounded-2xl p-6 flex items-start justify-between">
+    <div key={addr.id} className="max-w-3xl bg-white rounded-2xl p-6 flex items-start justify-between">
         {/* left */}
 
         <div className="flex gap-4">
@@ -47,7 +60,7 @@ const AddressCard = ({addr, onEditHandler, setAddresses } : AddressCardProps) =>
                 <PencilIcon className="size-4"/>
             </button>
 
-            <button onClick={()=> handleDelete(addr._id)}
+            <button onClick={()=> handleDelete(addr.id)}
             className="p-2 text-app-text-light hover:text-app-error hover:bg-app-red-50 rounded-lg transition-colors">
                 <Trash2Icon className="size-4"/>
             </button>

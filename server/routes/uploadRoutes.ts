@@ -6,11 +6,13 @@ import cloudinery from '../config/cloudinary.js';
 
 
 
+
 const uploadRouter = express.Router()
  const storage = multer.memoryStorage()
  const upload = multer({storage})
 
 uploadRouter.post('/', auth, upload.single('image'), async(req , res)=>{
+        console.log("🔥 UPLOAD ROUTE HIT");
     try {
         if (!req.file) {
             return res.status(400).json({message: "No image file provided"});
@@ -24,6 +26,15 @@ uploadRouter.post('/', auth, upload.single('image'), async(req , res)=>{
         })
         res.json({url: result.secure_url})
     } catch (error: any) {
+
+    console.error("========== UPLOAD ERROR ==========");
+    console.error("Message:", error?.message);
+    console.error("HTTP Code:", error?.http_code);
+    console.error("Name:", error?.name);
+    console.error("Full error:", error);
+    console.error("===================================");
+
+        console.error("CLOUDINARY UPLOAD ERROR:", error);
         res.status(500).json({message: error.message})
     }
 

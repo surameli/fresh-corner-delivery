@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 
 export const getAdminstats = async (req: Request , res: Response)=>{
-    const[totalOrder , totalUser, totalProducts, outofStock, totalPartners, recentOrders] = await Promise.all([
+    const[totalOrders , totalUsers, totalProducts, outOfStock, totalPartners, recentOrders] = await Promise.all([
         prisma.order.count({where: {NOT: [{paymentMethod: "card" , isPaid: false}]}}),
         prisma.user.count(),
         prisma.product.count(),
@@ -18,13 +18,13 @@ export const getAdminstats = async (req: Request , res: Response)=>{
             orderBy:{createdAt: "desc"},
             take: 8,
             include:{user:{select:{name: true, email: true}},
-                     DeliveryPartner: {select:{name: true, phone: true}}
+                     deliveryPartner: {select:{name: true, phone: true}}
         },
            
         }),
     ])
 
-    res.json({totalOrder , totalUser, totalProducts, outofStock, totalPartners, recentOrders})
+    res.json({totalOrders , totalUsers, totalProducts, outOfStock, totalPartners, recentOrders})
 }
 // get delivery partner list for admin
 export const getDeliveryPartner =  async(req: Request, res: Response)=>{
@@ -60,7 +60,7 @@ export const updateDeliveryPartner =  async(req: Request, res: Response)=>{
     if(name) data.name = name;
     if(phone) data.phone = phone;
     if (vehicleType) data.vehicleType = vehicleType;
-    if(isActive) data.isActive = isActive;
+    data.isActive = isActive;
    try {
     const partner = await prisma.deliveryPartner.update({
         where: {id: req.params.id as string},

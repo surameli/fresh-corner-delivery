@@ -898,6 +898,7 @@ export const OrderScalarFieldEnum = {
   deliveryOtp: 'deliveryOtp',
   liveLocation: 'liveLocation',
   isPaid: 'isPaid',
+  chapaReference: 'chapaReference',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

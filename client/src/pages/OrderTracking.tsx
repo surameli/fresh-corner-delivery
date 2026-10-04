@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import type { Order } from "../types";
-import { dummyDashboardOrdersData } from "../assets/assets";
-import Loading from "../components/loading";
+
+
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import OrderOTP from "../components/OrderTracking/OrderOTP";
 import LiveMap from "../components/OrderTracking/LiveMap";
 import OrderTimeLine from "../components/OrderTracking/OrderTimeLine";
-
+import api from "../config/api";
+import Loading from "../components/Loading";
+``
 
 const OrderTracking = () => {
 
@@ -20,9 +22,37 @@ const OrderTracking = () => {
   const [livelocation , setLiveLocation] = useState<{lat: number; lng: number} | null> (null)
 
   useEffect (()=>{
-    setorder(dummyDashboardOrdersData.find((o) => o._id === id)as any)
-    setloading(false)
+    api.get(`/orders/${id}`).then((res)=> setorder(res.data.order)).catch(()=> navigate("/orders")).finally(()=> setloading(false))
+    
   },[id, navigate])
+
+  // live location  every 10 seconds
+
+  useEffect(()=>{
+    if(!order || ["Delivered", "cancelled" , "Placed"].includes(order.status)) return;
+
+    const fetchLocation = async()=>{
+      try {
+        const {data} = await api.get(`/orders/${id}/location`)
+        if(data.liveLocation?.lat && data.liveLocation?.lng && data.liveLocation.updateAt){
+          setLiveLocation({
+            lat: data.liveLocation.lat,
+            lng: data.liveLocation.lng
+          })
+        }
+        // alse update order ststus if it changed
+
+        if(data.status && data.status !== order.status){
+          setorder((prev)=> prev ? {...prev, status: data.status}: prev)
+        }
+      } catch  {
+        
+      }
+    }
+    fetchLocation()
+    const interval = setInterval(fetchLocation, 10000)
+    return ()=> clearInterval(interval)
+  },[id, order?.status])
 
   if(loading) return <Loading/>
   if(!order) null
@@ -39,7 +69,7 @@ const OrderTracking = () => {
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-semibold text-app-green"> Order #{order!._id.slice(-8).toUpperCase()}</h1>
+            <h1 className="text-2xl font-semibold text-app-green"> Order #{order!.id.slice(-8).toUpperCase()}</h1>
             <p className="text-sm text-app-text-light mt-1">Placed on{new Date(order!.createdAt).toLocaleDateString("en-us" , {month: "long", day: "numeric", year:"numeric"})}</p>
           </div>
           <span className={`px-4 py-1.5 text-sm font-semibold rounded-full ${order!.status === "Delivered"  ?  "bg-green-100 text-green-700" :order!.status ==="cancelled" ? "bg-red-100 text-red-700" : "bg-app-orange/10 text-app-orange" }`}>

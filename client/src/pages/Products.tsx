@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import type { Product } from "../types";
-import { categoriesData, dummyProducts } from "../assets/assets";
+import { categoriesData  } from "../assets/assets";
 import { ChevronDown, Home, SlidersHorizontal, XIcon } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
 import FilterPanel from "../components/FilterPanel";
+import api from "../config/api";
+import toast from "react-hot-toast";
 
 
 
@@ -26,8 +28,24 @@ const Products = () => {
 
   const fetchProducts = async () => {
     setLoading(true);
-    setProducts(dummyProducts.filter((p) => p.category === category  || category === ""));
-    setLoading(false);
+    try {
+      const params = new URLSearchParams()
+      if(category) params.set('category', category)
+      if(organic) params.set('organic', organic)
+      if(sort) params.set('sort', sort)
+      if(maxprice) params.set('maxprice', maxprice)
+        params.set("page", String(page))
+        params.set("limit", "12")
+
+        const {data} = await api.get(`/products?${params.toString()}`)
+        setProducts(data.products)
+        setTotalPages(data.pages)
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || error?.message)
+    }finally{
+      setLoading(false)
+    }
+    
   };
   const updateFilters = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -117,7 +135,7 @@ const Products = () => {
             ) :(
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 xl:gap-6 ">
                 {products.map((product) =>product.stock > 0 && (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             )}

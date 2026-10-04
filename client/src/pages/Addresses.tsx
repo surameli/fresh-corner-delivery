@@ -1,39 +1,167 @@
 import { MapPinIcon, PlusIcon } from "lucide-react"
-import { dummyAddressData } from "../assets/assets"
 import type { Address } from "../types"
 import { useEffect, useState } from "react"
-import Loading from "../components/loading"
 import AddressCard from "../components/AddressCard"
 import AddressForm from "../components/AddressForm"
+import Loading from "../components/Loading"
+import { UseAuth } from "../context/AuthContext"
+import api from "../config/api"
+import toast from "react-hot-toast"
+import axios from "axios"
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (axios.isAxiosError<{ message?: string }>(error)) {
+    return error.response?.data?.message || error.message || fallback
+  }
+  return error instanceof Error ? error.message : fallback
+}
 
 const Addresses = () => {
+
+
+
+  const {updateUser} = UseAuth()
   const [addresses , setAddresses] = useState<Address[]>([])
   const  [loading , setloading]  = useState(true)
   const [showForm, setShowForm]  = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const [form, setform] = useState({label: "", addresses: "", city: "", state: "", zip: "", isDefault: false});
+  const [form, setform] = useState({label: "", address: "", city: "", state: "", zip: "", isDefault: false});
 
   const resetForm = () =>{
-    setform({label: "", addresses: "", city: "", state: "", zip: "", isDefault: false})
+    setform({label: "", address: "", city: "", state: "", zip: "", isDefault: false})
     setShowForm(false)
     setEditingId(null)
   }
-  const handelsubmit = async (e:React.SubmitEvent)=>{
-    e.preventDefault()
+  const getLocation = (retries = 3): Promise<{lat:number; lng: number}>=>{
+   return new Promise ((resolve, reject)=>{
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation not Supported"))
+      return;
+    }
+    const attempt = ()=>{
+      navigator.geolocation.getCurrentPosition(
+        (position)=>{
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        },
+        (error)=>{
+          if (retries > 0) {
+            retries--;
+            setTimeout(attempt, 1000)
+          }else{
+            reject(new Error(error.message || "Faild to get loaction after reties"))
+          }
+        },{
+          enableHighAccuracy: false,
+          timeout: 15000,
+          maximumAge:60000
+        }
+      )
+    };
+    attempt()
+   })
   }
+  // const handelsubmit = async (e:React.SubmitEvent)=>{
+  //   e.preventDefault()
+  //   try {
+  //     const coords = await getLocation()
+  //     const payload = {...form, ...coords}
+  //     if (editingId) {
+  //       const {data} = await api.put(`/addresses/${editingId}`, payload);
+  //       setAddresses(data.addresses)
+  //       updateUser({addresses: data.addresses})
+  //       toast.success("Address updated!")
+  //     }else{
+  //       const {data} = await api.post(`/addresses`, payload);
+  //       setAddresses(data.addresses)
+  //       updateUser({addresses:data.addresses})
+  //       toast.success("Address added!")
+  //     }
+  //     resetForm()
+  //   } catch (error: any) {
+  //     toast.error(error?.response?.data?.message || error?.message || "Failed")
+  //   }
+  // }
+
+
+  const handelsubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  console.log("========== ADD ADDRESS ==========");
+  console.log("Form:", form);
+  console.log("Editing ID:", editingId);
+
+  try {
+    const coords = await getLocation();
+
+    console.log("Location:", coords);
+
+    const payload = {
+      ...form,
+      ...coords,
+    };
+
+    console.log("Payload:", payload);
+
+    if (editingId) {
+      console.log("Updating address:", editingId);
+
+      const { data } = await api.put(
+        `/addresses/${editingId}`,
+        payload
+      );
+
+      console.log("Update response:", data);
+
+      setAddresses(data.addresses);
+      updateUser({ addresses: data.addresses });
+
+      toast.success("Address updated!");
+    } else {
+      console.log("Creating address...");
+
+      const { data } = await api.post(
+        `/addresses`,
+        payload
+      );
+
+      console.log("Create response:", data);
+
+      setAddresses(data.addresses);
+      updateUser({ addresses: data.addresses });
+
+      toast.success("Address added!");
+    }
+
+    resetForm();
+
+  } catch (error: unknown) {
+    console.error("❌ ADDRESS ERROR:", error);
+   
+    toast.error(
+      getErrorMessage(error, "Failed to save address")
+    );
+  }
+};
 
   const onEditHandler = (add: Address)=>{
-    setform({label: add.label, addresses: add.address, city: add.city, state: add.state, zip: add.zip, isDefault: add.isDefault})
+    setform({label: add.label, address: add.address, city: add.city, state: add.state, zip: add.zip, isDefault: add.isDefault})
     
-    setEditingId(add._id)
+    setEditingId(add.id)
     setShowForm(true)
 
   }
 
   useEffect(()=>{
-     setAddresses(dummyAddressData)
-     setTimeout(()=> setloading(false),1000)
+    api.get('/addresses').then(({data})=>{
+       setAddresses(data.addresses)
+    }).catch((error: unknown)=>{
+      toast.error(getErrorMessage(error, "Failed to load addresses"))
+    }).finally(()=>{
+      setloading(false)
+    })
   },[])
   return (
 
@@ -49,7 +177,7 @@ const Addresses = () => {
           </button>
         </div>
          {/* form modal */}
-          {showForm && <AddressForm resetForm={resetForm} handlesubmit = {handelsubmit} form= {form} setForm={setform} edithingId = {editingId}/>}
+          {showForm && <AddressForm resetForm={resetForm} handleSubmit={handelsubmit} form={form} setForm={setform} editingId={editingId}/>}
 
 
          {/* addresses list */}
@@ -66,7 +194,7 @@ const Addresses = () => {
           ):(
             <div className="space-y-4">
               {addresses.map((addr)=>(
-                <AddressCard key={addr._id} addr={addr} onEditHandler={onEditHandler} setAddresses={setAddresses}/>
+                <AddressCard key={addr.id} addr={addr} onEditHandler={onEditHandler} setAddresses={setAddresses}/>
               ))}
 
             </div>

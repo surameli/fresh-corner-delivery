@@ -72,7 +72,7 @@ model Order {
   deliveryOtp       String?          @default("")
   liveLocation      Json?
   isPaid            Boolean?         @default(false)
-
+  chapaReference        String?  @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

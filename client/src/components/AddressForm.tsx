@@ -1,8 +1,15 @@
 
 import { XIcon } from 'lucide-react'
 
+interface AddressFormProps {
+  resetForm: () => void
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  form: { label: string; address: string; city: string; state: string; zip: string; isDefault: boolean }
+  setForm: (form: AddressFormProps['form']) => void
+  editingId: string | null
+}
 
-const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId}: any) => {
+const AddressForm = ({resetForm, handleSubmit, form, setForm, editingId}: AddressFormProps) => {
   return (
     <>
       {/* overlay */}
